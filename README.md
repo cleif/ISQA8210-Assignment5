@@ -1,5 +1,4 @@
-# ISQA8210-Assignment5
-# Albuquerque Parks and Recreation Reservation System
+# Albuquerque Parks and Recreation Reservation System | ISQA8210-Assignment5
 Assignment 5 for ISQA 8210.  This application demonstrates an example of CRUD operations within a Django/Python web based application with a Postgresql relational database backend.
 
 ## Built With
