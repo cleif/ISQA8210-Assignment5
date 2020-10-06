@@ -1,2 +1,2 @@
 release: python manage.py migrate
-web: gunicorn bikeshoppe.wsgi --log-file -
+web: gunicorn parksystem.wsgi --log-file -
