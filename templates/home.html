@@ -5,8 +5,9 @@
   {% if user.is_authenticated %}
     <h1 class="display-4">Albuquerque Parks and Recreation</h1>
     <p class="lead">Welcome, {{user.first_name}}!</p>
-    <p class="lead">Park Reservation System</p>
+</div>
   {% else %}
+<div class="jumbotron">
     <h1 class="display-4">Park Reservation System</h1>
     <p class="lead"> Please Sign In or Signup to Continue</p>
     <p class="lead">
