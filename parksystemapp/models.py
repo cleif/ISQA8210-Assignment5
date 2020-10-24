@@ -5,7 +5,7 @@ from users.models import CustomUser
 from django.db import models
 from django.urls import reverse
 
-class Park (models.Model):
+class Park(models.Model):
     id = models.UUIDField(primary_key=True,default=uuid.uuid4,blank=False)
     park_name = models.CharField(max_length=255,blank=False,null=False,default='')
     park_addr = models.CharField(max_length=255,blank=False,null=False,default='')
@@ -15,10 +15,12 @@ class Park (models.Model):
     def __str__(self):
         return self.park_name
 
-    def get_absolute_url(self):
-        return reverse("_detail", kwargs={"pk": self.pk})
 
-class ParkProperty (models.Model):
+    class Meta:
+        verbose_name = 'Park'
+        verbose_name_plural = 'Park'
+
+class ParkProperty(models.Model):
     id = models.UUIDField(primary_key=True,default=uuid.uuid4,blank=False)
     park_name = models.ForeignKey("Park", on_delete=models.CASCADE,related_name='prop.parkname+')
     property_name = models.CharField(max_length=255,blank=False,null=False,default='')
@@ -35,19 +37,26 @@ class ParkProperty (models.Model):
     def get_absolute_url(self):
         return reverse("_detail", kwargs={"pk": self.pk})
 
-class ParkPropertyAvailbility(models.Model):
+    class Meta:
+        verbose_name = 'ParkProperty'
+        verbose_name_plural = 'ParkProperty'
+
+class ParkPropertyAvailability(models.Model):
     id = models.UUIDField(primary_key=True,default=uuid.uuid4,blank=False)
     property_availability_date = models.DateField(auto_now=False, auto_now_add=False)
     property_availability_starttime = models.TimeField( auto_now=False, auto_now_add=False)
     property_availability_endtime = models.TimeField(auto_now=False, auto_now_add=False)
     property_name = models.ForeignKey("ParkProperty",on_delete=models.CASCADE,related_name='ava.propertyname+')
 
-
     def __str__(self):
         return str(self.id)
 
     def get_absolute_url(self):
         return reverse("_detail", kwargs={"pk": self.pk})
+
+    class Meta:
+        verbose_name = 'ParkPropertyAvailability'
+        verbose_name_plural = 'ParkPropertyAvailability'
 
 class PropertyStatus(models.Model):
     id = models.UUIDField(primary_key=True,default=uuid.uuid4,blank=False)
@@ -65,14 +74,18 @@ class PropertyStatus(models.Model):
     def get_absolute_url(self):
         return reverse("_detail", kwargs={"pk": self.pk})
 
-class Reservation (models.Model):
+    class Meta:
+        verbose_name = 'PropertyStatus'
+        verbose_name_plural = 'PropertyStatus'
+
+class Reservation(models.Model):
     id = models.UUIDField(primary_key=True,default=uuid.uuid4,blank=False)
     res_eventdate = models.DateTimeField(auto_now=False, auto_now_add=False)
     res_slot = models.CharField(max_length=255,blank=True,null=True,default='')
     res_size = models.IntegerField(null=True,blank=True)
     res_status = models.CharField(max_length=255,blank=True,null=True,default='')
     renter_email = models.ForeignKey("users.CustomUser", on_delete=models.CASCADE)
-    property_availability_id = models.ForeignKey("ParkPropertyAvailbility", on_delete=models.CASCADE,related_name='res.propavailbilityid+')
+    property_availability_id = models.ForeignKey("ParkPropertyAvailability", on_delete=models.CASCADE,related_name='res.propavailbilityid+')
     property_name = models.ForeignKey("ParkProperty",on_delete=models.CASCADE,related_name='res.propertyname+')
 
     def __str__(self):
@@ -80,6 +93,10 @@ class Reservation (models.Model):
 
     def get_absolute_url(self):
         return reverse("_detail", kwargs={"pk": self.pk})
+
+    class Meta:
+        verbose_name = 'Reservation'
+        verbose_name_plural = 'Reservation'
 
 
 class Transaction(models.Model):
@@ -96,3 +113,8 @@ class Transaction(models.Model):
 
     def get_absolute_url(self):
         return reverse("_detail", kwargs={"pk": self.pk})
+
+
+    class Meta:
+        verbose_name = 'Transaction'
+        verbose_name_plural = 'Transaction'
