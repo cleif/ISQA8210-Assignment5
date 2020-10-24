@@ -4,7 +4,7 @@
 <div class="jumbotron">
   {% if user.is_authenticated %}
     <h1 class="display-4">Albuquerque Parks and Recreation</h1>
-    <p class="lead">Welcome, {{user.first_name}}!</p>
+    <p class="lead">Welcome, {{user.username}}!</p>
 </div>
   {% else %}
 <div class="jumbotron">
@@ -12,6 +12,9 @@
     <p class="lead"> Please Sign In or Signup to Continue</p>
     <p class="lead">
   {% endif %}
+
+<p>&copy; 2020 . Designed by Team 1</a> </p>
+
 </div>
 {% endblock content %}
 
