@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Park, ParkProperty,ParkPropertyAvailbility,Reservation,PropertyStatus,Transaction
+from .models import Park, ParkProperty,ParkPropertyAvailability,Reservation,PropertyStatus,Transaction
 from users.models import CustomUser
 
 class ParkAdmin(admin.ModelAdmin):
@@ -14,8 +14,8 @@ class ParkPropertyAdmin(admin.ModelAdmin):
     list_filter = ('id','park_name','property_name','property_description','property_guest_capacity','property_location','property_price','property_image','property_slot')
     ordering = ['park_name']
 
-class ParkPropertyAvailbilityAdmin(admin.ModelAdmin):
-    model = ParkPropertyAvailbility
+class ParkPropertyAvailabilityAdmin(admin.ModelAdmin):
+    model = ParkPropertyAvailability
     list_display = ('id','property_name','property_availability_date','property_availability_starttime','property_availability_endtime')
     list_filter = ('id','property_name','property_availability_date','property_availability_starttime','property_availability_endtime')
     ordering = ['property_name']
@@ -40,7 +40,7 @@ class TransactionAdmin(admin.ModelAdmin):
 
 admin.site.register(Park,ParkAdmin)
 admin.site.register(ParkProperty,ParkPropertyAdmin)
-admin.site.register(ParkPropertyAvailbility,ParkPropertyAvailbilityAdmin)
+admin.site.register(ParkPropertyAvailability,ParkPropertyAvailabilityAdmin)
 admin.site.register(Reservation,ReservationAdmin)
 admin.site.register(PropertyStatus,PropertyStatusAdmin)
 admin.site.register(Transaction,TransactionAdmin)
