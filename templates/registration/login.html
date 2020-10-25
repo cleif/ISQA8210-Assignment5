@@ -3,12 +3,30 @@
 {% block title %}Log In{% endblock title %}
 
 {% block content %}
-<h2>Log In</h2>
-<form method="post" class="form-signin">
-    {% csrf_token %}
-    {{ form|crispy }}
-    <div><p></p></div>
-    <button class="btn btn-success btn-med" type="submit">Log In</button>
-    <a href="" class="btn btn-danger btn-med"disabled>Forgot Password</a>
-</form>
+<div class="container" style="margin-top: 20px; padding-left: 30%;">
+    <div class="card-title bg-dark text-white" style="width: 50%;">
+        <div class="card-header">
+            <h2 style="text-align: center;">Log In</h2>
+        </div>
+        <div class="card-body">
+            <form method="post" class="form-signin" style="margin-left: 12%;">
+                <div class="row">
+                    <div class="col" style="margin-left: 9%;">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                    </div>  
+                </div>
+                <div class="row" style="margin-top: 10px; margin-left: 10px;" >
+                    <div class="col-3">
+                        <button class="btn btn-success btn-med" type="submit">Log In</button>
+                    </div>
+                    <div class="col-3">
+                        <a href="{% url 'password_reset' %}" class="btn btn-danger btn-med" disabled>Forgot Password</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 {% endblock content %}
