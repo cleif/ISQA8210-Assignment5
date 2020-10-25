@@ -28,19 +28,6 @@ class Migration(migrations.Migration):
             name='park_name',
             field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='prop.parkname+', to='parksystemapp.Park'),
         ),
-        migrations.CreateModel(
-            name='Reservation',
-            fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, primary_key=True, serialize=False)),
-                ('res_eventdate', models.DateTimeField()),
-                ('res_slot', models.CharField(blank=True, default='', max_length=255, null=True)),
-                ('res_size', models.IntegerField(blank=True, null=True)),
-                ('res_status', models.CharField(blank=True, default='', max_length=255, null=True)),
-                ('property_availability_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='res.propavailbilityid+', to='parksystemapp.ParkPropertyAvailbility')),
-                ('property_name', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='res.propertyname+', to='parksystemapp.ParkProperty')),
-                ('renter_email', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
-            ],
-        ),
         migrations.AddField(
             model_name='parkpropertyavailbility',
             name='property_name',
