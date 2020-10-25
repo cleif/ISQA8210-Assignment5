@@ -18,9 +18,13 @@
       <h2 >View Parks or Sign-Up/Login to Reserve</h2>
     </div>
     <div class="row" style="justify-content: center;">
+
+        {% if user.is_authenticated %}
       <div class="col-5">
         <a href="{% url 'park_list' %}" class="btn btn-block btn-success">View parks</a>
       </div>
+             {% else %}
+          {% endif %}
       <div class="col-5">
         <a href="{% url 'signup' %}" class="btn btn-block btn-info">Sign-Up</a>
       </div>
