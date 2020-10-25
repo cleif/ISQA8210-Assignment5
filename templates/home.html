@@ -1,20 +1,32 @@
 {% extends 'base.html' %}
+<!-- {% load crispy_forms_tags %} -->
+
 
 {% block content %}
 <div class="jumbotron">
   {% if user.is_authenticated %}
-    <h1 class="display-4">Albuquerque Parks and Recreation</h1>
-    <p class="lead">Welcome, {{user.username}}!</p>
+  <div class="container">
+    <h1 class="display-4" style="text-align: center;">Albuquerque Parks and Recreation</h1>
+    <a class="btn btn-block btn-success" href="{% url 'park_list' %}">View parks</a>
+  </div>
+  </div>
 </div>
   {% else %}
 <div class="jumbotron">
-    <h1 class="display-4">Park Reservation System</h1>
-    <p class="lead"> Please Sign In or Signup to Continue</p>
-    <p class="lead">
-  {% endif %}
-
-<p>&copy; 2020 . Designed by Team 1</a> </p>
-
+  <div class="container">
+    <div class="row" style="justify-content: center;">
+      <h2 >View Parks or Sign-Up/Login to Reserve</h2>
+    </div>
+    <div class="row" style="justify-content: center;">
+      <div class="col-5">
+        <a href="{% url 'park_list' %}" class="btn btn-block btn-success">View parks</a>
+      </div>
+      <div class="col-5">
+        <a href="{% url 'signup' %}" class="btn btn-block btn-info">Sign-Up</a>
+      </div>
+    </div>
+  </div>
+    {% endif %}
 </div>
 {% endblock content %}
 
