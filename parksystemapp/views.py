@@ -5,6 +5,7 @@ from django.views.generic import ListView
 from .models import models
 from .models import Park
 from django.urls import reverse_lazy,reverse
+from PIL import Image
 
 
 class ParkListView(LoginRequiredMixin,ListView):
