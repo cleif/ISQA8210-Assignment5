@@ -12,12 +12,7 @@ class ParkListView(LoginRequiredMixin,ListView):
     template_name = 'park_list.html'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # User level Check
-        if self.request.user.is_superuser:
-            context['parks'] = Park.objects.all()
-        else:
-            # Results based on logged in user
-            context['parks'] = Park.objects.filter(author=self.request.user)
+        context['parks'] = Park.objects.all()
         return context
 
 class ParkEditView(LoginRequiredMixin,UpdateView):
