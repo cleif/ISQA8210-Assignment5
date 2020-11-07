@@ -14,8 +14,9 @@ class SignUpView(generic.CreateView):
 
 class UserUpdateView(UpdateView):
     model = CustomUser
-    fields = ('first_name', 'last_name')
+    fields = ('first_name', 'last_name','user_street_addr','user_city','user_state','user_zip','user_organization','user_phone')
     template_name = 'user_edit.html'
+    success_url = reverse_lazy('account')
 
 class UserDeleteView(DeleteView):
     model = CustomUser
