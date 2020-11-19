@@ -55,7 +55,7 @@ class ParkDetailView(LoginRequiredMixin,DetailView):
     queryset = Park.objects.all()
 
     def get_context_data(self, **kwargs):
-        context = super(ParkDetailView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context['parkprops'] = ParkProperty.objects.all()
         return context
 

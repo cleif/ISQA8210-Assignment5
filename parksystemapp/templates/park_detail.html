@@ -16,7 +16,7 @@
     </style>
     <body>
         <h2 style="padding-left: 15Px">Park Property Information for {{ object.park_name }}</h2>
-        Testing<h2>{{ parkpropss.property_name }}</h2>   
+        Testing<h2>{{ parkprops.property_name }}</h2>   
             <table class="table table-striped table-bordered table-hover" >
             <thead>
             <tr class="bg-info">
@@ -32,8 +32,8 @@
             </tr>
             </thead>
             <tbody>
-            {% for parkprops in parkpropss %}
-            {% if parkprops.park.id == object.id %}
+            {% for parkprops in parkprops %}
+            {% if parkprops.park_name.id == object.id %}
                 <tr>
                     <td class="nowrap">{{ parkprops.property_name }}</td>
                     <td class="nowrap">{{ parkprops.park_name }}</td>
@@ -41,8 +41,6 @@
                     <td class="nowrap">{{ parkprops.property_guest_capacity }}</td>
                     <td class="nowrap">{{ parkprops.property_location }}</td>
                     <td class="nowrap">{{ parkprops.property_price }}</td>
-                    <td class="nowrap">{{ parkprops.property_slot }}</td>
-                    <td> <img src={{parkprops.property_image}} alt=""   style="display: block; width: 250px;height: 150px;"></td>
                     <td class="nowrap"><a href="{% url 'propavailability_list' parkprops.pk %}"class="btn btn-warning">Availability</a></td>
                     <td class="nowrap"><a href="{% url 'parkprop_edit' parkprops.pk %}"class="btn btn-warning">Edit</a></td>
                     <td class="nowrap"><a href="{% url 'parkprop_delete' parkprops.pk %}"onclick="return confirm('Are you sure you want to delete?')"class="btn btn-danger">Delete</a>
