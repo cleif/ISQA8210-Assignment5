@@ -1,9 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
 from django.views.generic.edit import UpdateView, DeleteView, CreateView
-from django.views.generic import ListView
-from .models import models, ParkProperty
-from .models import Park
+from django.views.generic import ListView, DetailView
+from .models import models, Park, ParkProperty, ParkPropertyAvailability,PropertyStatus,Reservation,Transaction
 from django.urls import reverse_lazy,reverse
 from PIL import Image
 
@@ -49,11 +48,21 @@ class ParkCreateView(LoginRequiredMixin,CreateView):
     def get_success_url(self):
         return reverse('park_list')
 
+class ParkDetailView(LoginRequiredMixin,DetailView):
+    model = Park
+    template_name = 'park_detail.html'
+    login_url = 'login'
+    queryset = Park.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['parkprops'] = ParkProperty.objects.all()
+        return context
 
 class ParkPropertyListView(LoginRequiredMixin,ListView):
     model = ParkProperty
     template_name = 'parkprop_list.html'
-
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['parkprops'] = ParkProperty.objects.all()
@@ -93,3 +102,17 @@ class ParkPropertyCreateView(LoginRequiredMixin,CreateView):
 
     def get_success_url(self):
         return reverse('parkprop_list')
+
+class PropAvailabilityDetailView(LoginRequiredMixin,DetailView):
+    model = ParkProperty
+    template_name = 'propavailability_list.html'
+    queryset = ParkProperty.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['propertyava'] = ParkPropertyAvailability.objects.all()
+        return context
+
+class PropReservationDetailView(LoginRequiredMixin,DetailView):
+        model = Reservation
+        template_name = 'reservation.html'

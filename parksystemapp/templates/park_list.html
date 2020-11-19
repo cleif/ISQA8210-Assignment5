@@ -28,7 +28,7 @@
                 <th>Park Address</th>
                 <th>Park Contact</th>
                 <th>Park Image</th>
-                <th colspan="2">Actions</th>
+                <th colspan="3">Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -42,11 +42,9 @@
                     <img src={{parks.park_image}} alt=""   style="display: block; width: 250px;
                           height: 150px;">
                    </td>
-                    <td class="nowrap"><a href="{% url 'park_edit' parks.pk %}"
-                           class="btn btn-warning">Edit</a></td>
-                    <td class="nowrap"><a href="{% url 'park_delete' parks.pk %}"
-                           onclick="return confirm('Are you sure you want to delete?')"
-                           class="btn btn-danger">Delete</a>
+                    <td class="nowrap"><a href="{% url 'park_details' parks.pk %}"class="btn btn-warning">Details</a></td>
+                    <td class="nowrap"><a href="{% url 'park_edit' parks.pk %}"class="btn btn-warning">Edit</a></td>
+                    <td class="nowrap"><a href="{% url 'park_delete' parks.pk %}"onclick="return confirm('Are you sure you want to delete?')"class="btn btn-danger">Delete</a>
                     </td>
                 </tr>
             {% endfor %}
