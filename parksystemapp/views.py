@@ -2,7 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
 from django.views.generic.edit import UpdateView, DeleteView, CreateView
 from django.views.generic import ListView
-from .models import models
+from .models import models, ParkProperty
 from .models import Park
 from django.urls import reverse_lazy,reverse
 from PIL import Image
@@ -48,3 +48,48 @@ class ParkCreateView(LoginRequiredMixin,CreateView):
 
     def get_success_url(self):
         return reverse('park_list')
+
+
+class ParkPropertyListView(LoginRequiredMixin,ListView):
+    model = ParkProperty
+    template_name = 'parkprop_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['parkprops'] = ParkProperty.objects.all()
+        return context
+
+
+class ParkPropertyEditView(LoginRequiredMixin,UpdateView):
+    model = ParkProperty
+    fields = ('park_name', 'property_name', 'property_description', 'property_guest_capacity','property_location','property_price','property_image','property_slot')
+    template_name = 'parkprop_edit.html'
+
+    def form_valid(self, form):
+        form.instance.parkprop = get_object_or_404(ParkProperty, pk=self.kwargs['pk'])
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('parkprop_list')
+
+
+class ParkPropertyDeleteView(LoginRequiredMixin,DeleteView):
+    model = ParkProperty
+    template_name = 'parkprop_delete.html'
+    def get_success_url(self):
+        return reverse('parkprop_list')
+
+
+class ParkPropertyCreateView(LoginRequiredMixin,CreateView):
+    model = ParkProperty
+    template_name = 'parkprop_add.html'
+    fields = ('park_name', 'property_name', 'property_description', 'property_guest_capacity','property_location','property_price','property_image','property_slot')
+    login_url = 'login'
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('parkprop_list')
