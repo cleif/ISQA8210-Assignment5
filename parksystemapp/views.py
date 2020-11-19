@@ -62,7 +62,7 @@ class ParkDetailView(LoginRequiredMixin,DetailView):
 class ParkPropertyListView(LoginRequiredMixin,ListView):
     model = ParkProperty
     template_name = 'parkprop_list.html'
-
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['parkprops'] = ParkProperty.objects.all()
@@ -103,11 +103,16 @@ class ParkPropertyCreateView(LoginRequiredMixin,CreateView):
     def get_success_url(self):
         return reverse('parkprop_list')
 
-class PropAvailabilityListView(LoginRequiredMixin,ListView):
-    model = ParkPropertyAvailability
+class PropAvailabilityDetailView(LoginRequiredMixin,DetailView):
+    model = ParkProperty
     template_name = 'propavailability_list.html'
+    queryset = ParkProperty.objects.all()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['propavailability'] = ParkPropertyAvailability.objects.all()
+        context['propertyava'] = ParkPropertyAvailability.objects.all()
         return context
+
+class PropReservationDetailView(LoginRequiredMixin,DetailView):
+        model = Reservation
+        template_name = 'reservation.html'

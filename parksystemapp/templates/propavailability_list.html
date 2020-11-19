@@ -20,14 +20,14 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for propavailability in propavailabilitys %}
-                {% if propavailability.parkprop.id == object.id%}
+                {% for propertyava in propertyava %}
+                {% if propertyava.property_name.id == object.id %}
                     <tr>
-                        <td class="nowrap">{{ propavailability.property_name }}</td>
-                        <td class="nowrap">{{ propavailability.property_availability_date }}</td>
-                        <td class="nowrap">{{ propavailability.proptery_availability_starttime }}</td>
-                        <td class="nowrap">{{ propavailability.endtime }}</td>
-                        <td>buttons to come</td>
+                        <td class="nowrap">{{ propertyava.property_name }}</td>
+                        <td class="nowrap">{{ propertyava.property_availability_date }}</td>
+                        <td class="nowrap">{{ propertyava.property_availability_starttime }}</td>
+                        <td class="nowrap">{{ propertyava.property_availability_endtime }}</td>
+                        <td class="nowrap"><a href="{% url 'reservation_detail' propertyava.pk %}"class="btn btn-warning">Reserve</a></td>
                     </tr>
                 {% endif %}
                 {% endfor %}
