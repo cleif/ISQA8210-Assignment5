@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block content %}
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Park Reservation System</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+    </head>
+
+     <style>
+
+         body {
+            background-color: #7abaff;
+        }
+
+    </style>
+    <body>
+
+    <div class="row">
+        <h2 style="padding-left: 15Px">Park Property Information</h2>
+    </div>
+    <div >
+        <table class="table table-striped table-bordered table-hover" >
+            <thead>
+            <tr class="bg-info">
+                <th>Property Name</th>
+                <th>Park Name</th>
+                <th>Property Description</th>
+                <th>Property Guest Capacity</th>
+                <th>Property Location</th>
+                <th>Property Price</th>
+                <th>Property Slot</th>
+                <th>Property Image</th>
+                <th colspan="2">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for parkprops in parkprops %}
+                <tr>
+                    <td class="nowrap">{{ parkprops.property_name }}</td>
+                    <td class="nowrap">{{ parkprops.park_name }}</td>
+                    <td class="nowrap">{{ parkprops.property_description }}</td>
+                    <td class="nowrap">{{ parkprops.property_guest_capacity }}</td>
+                    <td class="nowrap">{{ parkprops.property_location }}</td>
+                    <td class="nowrap">{{ parkprops.property_price }}</td>
+                    <td class="nowrap">{{ parkprops.property_slot }}</td>
+                    <td>
+                    <img src={{parkprops.property_image}} alt=""   style="display: block; width: 250px;
+                          height: 150px;">
+                   </td>
+                    <td class="nowrap"><a href="{% url 'parkprop_edit' parkprops.pk %}"
+                           class="btn btn-warning">Edit</a></td>
+                    <td class="nowrap"><a href="{% url 'parkprop_delete' parkprops.pk %}"
+                           onclick="return confirm('Are you sure you want to delete?')"
+                           class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="row" align="center">
+            <a href="{% url 'parkprop_add' %}" class="row"><span
+                    class="btn btn-primary">Add Park Property</span></a>
+        </div>
+    </div>
+    </body>
+    </html>
+{% endblock %}

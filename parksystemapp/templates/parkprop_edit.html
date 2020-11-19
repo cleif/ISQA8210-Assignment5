@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <h1>Edit Park Property</h1>
+    <form action="" method="post" class="md-8">{% csrf_token %}
+      {{ form|crispy }}<br>
+    <button class="save btn btn-primary" type="submit">Update</button>
+</form>
+{% endblock content %}
