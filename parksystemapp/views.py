@@ -117,3 +117,7 @@ class PropReservationCreateView(LoginRequiredMixin,CreateView):
     model = Reservation
     template_name = 'reservation.html'
     fields = ['res_eventdate','res_size','res_slot','renter_email','property_name']
+
+class PropReservationDetailView(LoginRequiredMixin, DetailView):
+    model = Reservation
+    template_name  = 'reservation_detail.html'

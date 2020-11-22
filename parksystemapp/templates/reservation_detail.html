@@ -1,4 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
-TODO: RESERVATION PAGE
+
+<div class="card" style="width: 18rem; margin-top: 20px;">
+    <div class="card-body">
+      <h5 class="card-title">Reservation for {{ object.property_name }}</h5>
+      <p class="card-text">Here are the details of your park reservation.</p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">{{object.property_name}}</li>
+      <li class="list-group-item">{{object.res_eventdate}}</li>
+      <li class="list-group-item">{{object.res_size}}</li>
+      <li class="list-group-item">{{object.renter_email}}</li>
+    </ul>
+    <div class="card-body">
+      <a href="#" class="card-link">Cancel Reservation</a>
+    </div>
+  </div>
+
 {% endblock %}
