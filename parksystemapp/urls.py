@@ -11,7 +11,7 @@ from .views import (
     ParkPropertyDeleteView,
     ParkPropertyCreateView,
     PropAvailabilityDetailView,
-    PropReservationDetailView
+    PropReservationCreateView,
 )
 
 
@@ -27,5 +27,5 @@ urlpatterns = [
     path('parkpropnew/', ParkPropertyCreateView.as_view(), name='parkprop_add'),
     path('parkproplist/', ParkPropertyListView.as_view(), name='parkprop_list'),
     path('parkprop/<uuid:pk>/propavailability', PropAvailabilityDetailView.as_view(), name='propavailability_list'),
-    path('parkprop/<uuid:pk>/reserve', PropReservationDetailView.as_view(), name='reservation_detail')
+    path('parkprop/<uuid:pk>/reserve_create', PropReservationCreateView.as_view(), name='reservation'),
 ]

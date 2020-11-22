@@ -113,6 +113,7 @@ class PropAvailabilityDetailView(LoginRequiredMixin,DetailView):
         context['propertyava'] = ParkPropertyAvailability.objects.all()
         return context
 
-class PropReservationDetailView(LoginRequiredMixin,DetailView):
-        model = Reservation
-        template_name = 'reservation.html'
+class PropReservationCreateView(LoginRequiredMixin,CreateView):
+    model = Reservation
+    template_name = 'reservation.html'
+    fields = ['res_eventdate','res_size','res_slot','renter_email','property_name']
