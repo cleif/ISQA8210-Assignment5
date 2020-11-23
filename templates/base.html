@@ -46,6 +46,12 @@
                     </a>
              </li>
 
+             <li class="nav-item">
+              <a class="nav-link" href="{% url 'reservation_list' user.pk %}">
+                  <span>Reservations</span>
+              </a>
+             </li>
+
            {% else %}
                 <li></li>
           {% endif %}

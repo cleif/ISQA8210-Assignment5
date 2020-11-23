@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Welcome {{user.username}}</h1>
+        <div class="card-deck">
+    {% for reservation in object_list  %}
+        <div class="card">
+            <div class="card-body">
+            <h5 class="card-title">{{reservation.property_name}}</h5>
+            <p class="card-text">{{reservation.res_eventdate}}</p>
+            <p class="card-text">{{reservation.res_size}}</p>
+            <p class="card-text">{{reservation.renter_email}}</p>
+            <p class="card-text">{{reservation.res_status}}</p>
+            </div>
+            <div class="card-footer">
+                <a class="btn btn-info" href="{% url 'reservation_detail' reservation.pk %}">Details</a>
+                <a class="btn btn-danger" href="{% url 'reservation_delete' reservation.pk %}" class="card-link">Cancel</a>
+            </div>
+        </div>  
+        
+    {% if forloop.counter|divisibleby:3 %}
+    </div>
+    <br>
+        <div class="card-deck">
+        {% endif %}
+    {% endfor %}
+    </div>
+{% endblock %}

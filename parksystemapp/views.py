@@ -127,3 +127,7 @@ class PropReservationDeleteView(LoginRequiredMixin,DeleteView):
     template_name = 'reservation_delete.html'
     def get_success_url(self):
         return reverse('parkprop_list')
+
+class PropReservationListView(LoginRequiredMixin,ListView):
+    model = Reservation
+    template_name = 'reservation_list.html'

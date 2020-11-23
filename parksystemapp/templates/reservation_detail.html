@@ -17,7 +17,7 @@ height: auto;">
       <li class="list-group-item">{{object.renter_email}}</li>
     </ul>
     <div class="card-body">
-      <a href="{% url 'reservation_delete' object.pk %}" class="card-link">Cancel Reservation</a>
+      <a class="btn btn-danger" href="{% url 'reservation_delete' object.pk %}" class="card-link">Cancel Reservation</a>
     </div>
   </div>
 </div>
