@@ -5,6 +5,7 @@ from django.views.generic import ListView, DetailView
 from .models import models, Park, ParkProperty, ParkPropertyAvailability,PropertyStatus,Reservation,Transaction
 from django.urls import reverse_lazy,reverse
 from PIL import Image
+from .forms import ReservationForm
 
 
 class ParkListView(LoginRequiredMixin,ListView):
@@ -114,9 +115,9 @@ class PropAvailabilityDetailView(LoginRequiredMixin,DetailView):
         return context
 
 class PropReservationCreateView(LoginRequiredMixin,CreateView):
-    model = Reservation
+    form_class = ReservationForm
     template_name = 'reservation.html'
-    fields = ['res_eventdate','res_size','res_slot','renter_email','property_name']
+    #fields = ['res_eventdate','res_size','res_slot','renter_email','property_name']
 
 class PropReservationDetailView(LoginRequiredMixin, DetailView):
     model = Reservation
