@@ -121,3 +121,9 @@ class PropReservationCreateView(LoginRequiredMixin,CreateView):
 class PropReservationDetailView(LoginRequiredMixin, DetailView):
     model = Reservation
     template_name  = 'reservation_detail.html'
+
+class PropReservationDeleteView(LoginRequiredMixin,DeleteView):
+    model = Reservation
+    template_name = 'reservation_delete.html'
+    def get_success_url(self):
+        return reverse('parkprop_list')
