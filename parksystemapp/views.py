@@ -1,11 +1,15 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
 from django.views.generic.edit import UpdateView, DeleteView, CreateView
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, TemplateView
 from .models import models, Park, ParkProperty, ParkPropertyAvailability,PropertyStatus,Reservation,Transaction
 from django.urls import reverse_lazy,reverse
 from PIL import Image
 from .forms import ReservationForm
+from django.http import HttpResponseRedirect, HttpResponse
+from datetime import datetime
+import csv
+
 
 
 class ParkListView(LoginRequiredMixin,ListView):
@@ -132,3 +136,102 @@ class PropReservationDeleteView(LoginRequiredMixin,DeleteView):
 class PropReservationListView(LoginRequiredMixin,ListView):
     model = Reservation
     template_name = 'reservation_list.html'
+
+
+
+
+#....Reporting Exports...
+
+class ReportTemplateView(LoginRequiredMixin,TemplateView):
+    template_name = 'reporting.html'
+
+def export_Park_toCSV(request):
+    fields = [f.name for f in Park._meta.fields]
+    timestamp = datetime.now()
+    timeappend = timestamp.strftime("%x")
+    response = HttpResponse(content_type="text/csv")
+    response[
+        "Content-Disposition"
+    ] = f"attachment; filename={timeappend}-Parks.csv"
+    writer = csv.writer(response)
+
+    writer.writerow(fields)
+    for row in Park.objects.values(*fields):
+        writer.writerow([row[field] for field in fields])
+    return response
+
+def export_ParkProperty_toCSV(request):
+    fields = [f.name for f in ParkProperty._meta.fields]
+    timestamp = datetime.now()
+    timeappend = timestamp.strftime("%x")
+    response = HttpResponse(content_type="text/csv")
+    response[
+        "Content-Disposition"
+    ] = f"attachment; filename={timeappend}-ParkProperty.csv"
+    writer = csv.writer(response)
+
+    writer.writerow(fields)
+    for row in ParkProperty.objects.values(*fields):
+        writer.writerow([row[field] for field in fields])
+    return response
+
+def export_ParkPropertyAvailability_toCSV(request):
+    fields = [f.name for f in ParkPropertyAvailability._meta.fields]
+    timestamp = datetime.now()
+    timeappend = timestamp.strftime("%x")
+    response = HttpResponse(content_type="text/csv")
+    response[
+        "Content-Disposition"
+    ] = f"attachment; filename={timeappend}-ParkPropertyAvailability.csv"
+    writer = csv.writer(response)
+
+    writer.writerow(fields)
+    for row in ParkPropertyAvailability.objects.values(*fields):
+        writer.writerow([row[field] for field in fields])
+    return response
+
+def export_PropertyStatus_toCSV(request):
+    fields = [f.name for f in PropertyStatus._meta.fields]
+    timestamp = datetime.now()
+    timeappend = timestamp.strftime("%x")
+    response = HttpResponse(content_type="text/csv")
+    response[
+        "Content-Disposition"
+    ] = f"attachment; filename={timeappend}-PropertyStatus.csv"
+    writer = csv.writer(response)
+
+    writer.writerow(fields)
+    for row in PropertyStatus.objects.values(*fields):
+        writer.writerow([row[field] for field in fields])
+    return response
+
+def export_Reservation_toCSV(request):
+    fields = [f.name for f in Reservation._meta.fields]
+    timestamp = datetime.now()
+    timeappend = timestamp.strftime("%x")
+    response = HttpResponse(content_type="text/csv")
+    response[
+        "Content-Disposition"
+    ] = f"attachment; filename={timeappend}-Reservation.csv"
+    writer = csv.writer(response)
+
+    writer.writerow(fields)
+    for row in Reservation.objects.values(*fields):
+        writer.writerow([row[field] for field in fields])
+    return response
+
+def export_Transaction_toCSV(request):
+    fields = [f.name for f in Transaction._meta.fields]
+    timestamp = datetime.now()
+    timeappend = timestamp.strftime("%x")
+    response = HttpResponse(content_type="text/csv")
+    response[
+        "Content-Disposition"
+    ] = f"attachment; filename={timeappend}-Transaction.csv"
+    writer = csv.writer(response)
+
+    writer.writerow(fields)
+    for row in Transaction.objects.values(*fields):
+        writer.writerow([row[field] for field in fields])
+    return response
+   

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+<!-- {% load crispy_forms_tags %} -->
+
+
+{% block content %}
+<div class="jumbotron">
+<div class="jumbotron">
+  <div class="container">
+    <div class="row" style="justify-content: center;">
+      <h2 >Export Data</h2>
+    </div>
+    <div class="row" style="justify-content: center;">
+        {% if user.is_authenticated %}
+      <div class="col-5">
+        <a href="{% url 'export_Park' %}" class="btn btn-block btn-success">Export Park Data</a>
+        <a href="{% url 'export_ParkProperty' %}" class="btn btn-block btn-success">Export Property Data</a>
+        <a href="{% url 'export_ParkPropertyAvailability' %}" class="btn btn-block btn-success">Export Availability Data</a>
+        <a href="{% url 'export_PropertyStatus' %}" class="btn btn-block btn-success">Export Reservation Status Data</a>
+        <a href="{% url 'export_Reservation' %}" class="btn btn-block btn-success">Export Reservation Data</a>
+        <a href="{% url 'export_Transaction' %}" class="btn btn-block btn-success">Export Transaction Data</a>
+      </div>
+        {% else %}
+        {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock content %}
+
+
