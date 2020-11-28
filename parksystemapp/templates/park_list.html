@@ -12,10 +12,11 @@
         <h2 style="padding-left: 15Px">Park Information</h2>
     <p></p>
     </div>
-    <div>
+    <div class="card-deck">
         {% for parks in parks  %}
             <div class="card">
                 <div class="card-body">
+                    <img src={{parks.park_image}} alt="" style="display: block; width: 250px; height: 150px;">
                     <h5 class="card-title">{{ parks.park_name }}</h5>
                     <p class="card-text">{{ parks.park_addr }}</p>
                     <p class="card-text">{{ parks.park_contact }}</p>
@@ -28,9 +29,10 @@
                     {% endif %}
                 </div>
             </div>
-        <p></p>
+        {% if forloop.counter|divisibleby:3 %}{% endif %}
         {% endfor %}
     </div>
+    <p></p>
         <div class="row" align="center">
             <a href="{% url 'park_add' %}" class="row"><span
                     class="btn btn-primary">Add Park</span></a>
