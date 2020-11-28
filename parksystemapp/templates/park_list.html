@@ -7,18 +7,16 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     </head>
     <body>
+    <p></p>
     <div class="row">
-    <p></p>
-        <h2 style="padding-left: 15Px">Park Information</h2>
-    <p></p>
     </div>
-    <div class="card-deck">
+    <div class="card-deck" >
         {% for parks in parks  %}
             <div class="card">
                 <div class="card-body">
-                    <img src={{parks.park_image}} alt="" style="display: block; width: 250px; height: 150px;">
+                    <img class="card-img-top" src={{parks.park_image}} alt="">
                     <h5 class="card-title">{{ parks.park_name }}</h5>
-                    <p class="card-text">{{ parks.park_addr }}</p>
+                    <p class="card-subtitle">{{ parks.park_addr }}</p>
                     <p class="card-text">{{ parks.park_contact }}</p>
                 </div>
                 <div class="card-footer">
