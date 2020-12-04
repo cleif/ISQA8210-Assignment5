@@ -11,7 +11,9 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import braintree
 import django_heroku
+#import env
 
 #Needed for local email testing only
 #import env
@@ -132,6 +134,16 @@ USE_L10N = True
 
 USE_TZ = True
 
+# BRAINTREE INFORMATION
+BRAINTREE_MERCHANT_ID = 'vh7236s563b7xcmw'  # Merchant ID
+BRAINTREE_PUBLIC_KEY = '9vmkd93ph6rmrp9s'   # Public Key
+BRAINTREE_PRIVATE_KEY = os.environ.get('BRAINTREE_PRIVATE_KEY')  # Private key
+BRAINTREE_CONF = braintree.Configuration(
+    braintree.Environment.Sandbox,
+    BRAINTREE_MERCHANT_ID,
+    BRAINTREE_PUBLIC_KEY,
+    BRAINTREE_PRIVATE_KEY
+)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
