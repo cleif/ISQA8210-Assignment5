@@ -28,9 +28,26 @@ class PropertyStatusAdmin(admin.ModelAdmin):
 
 class ReservationAdmin(admin.ModelAdmin):
     model = Reservation
-    list_display = ('id','property_name','res_eventdate','res_slot','res_size','res_status','renter_email','property_availability_id')
-    list_filter = ('id','property_name','res_eventdate','res_slot','res_size','res_status','renter_email','property_availability_id')
+    list_display = ('id','get_parkname','property_name','res_slot','res_size','res_status','renter_email','get_resdate','get_resstart','get_resend')
+    list_filter = ('id','property_name','res_slot','res_size','res_status','renter_email')
     ordering = ['property_name']
+
+    def get_parkname(self,obj):
+        return obj.property_availability_id.property_name.park_name.park_name
+    get_parkname.short_description = 'park_name'
+
+    def get_resdate(self,obj):
+        return obj.property_availability_id.property_availability_date
+    get_resdate.short_description = 'res_date'
+
+    def get_resstart(self,obj):
+        return obj.property_availability_id.property_availability_starttime
+    get_resstart.short_description = 'res_start'
+
+    def get_resend(self,obj):
+        return obj.property_availability_id.property_availability_endtime
+    get_resend.short_description = 'res_end'
+
 
 class TransactionAdmin(admin.ModelAdmin):
     model = Transaction
@@ -38,10 +55,10 @@ class TransactionAdmin(admin.ModelAdmin):
     list_fileter = ('id','res_id','transaction_amount','transaction_date','transaction_type','transaction_notes')
     ordering = ['res_id']
 
-admin.site.register(Park,ParkAdmin)
-admin.site.register(ParkProperty,ParkPropertyAdmin)
-admin.site.register(ParkPropertyAvailability,ParkPropertyAvailabilityAdmin)
-admin.site.register(Reservation,ReservationAdmin)
-admin.site.register(PropertyStatus,PropertyStatusAdmin)
-admin.site.register(Transaction,TransactionAdmin)
+admin.site.register(Park, ParkAdmin)
+admin.site.register(ParkProperty, ParkPropertyAdmin)
+admin.site.register(ParkPropertyAvailability, ParkPropertyAvailabilityAdmin)
+admin.site.register(Reservation, ReservationAdmin)
+admin.site.register(PropertyStatus, PropertyStatusAdmin)
+admin.site.register(Transaction, TransactionAdmin)
 

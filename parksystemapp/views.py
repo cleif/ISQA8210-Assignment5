@@ -119,9 +119,9 @@ class PropAvailabilityDetailView(LoginRequiredMixin,DetailView):
         return context
 
 class PropReservationCreateView(LoginRequiredMixin,CreateView):
-    form_class = ReservationForm
+    model = Reservation
     template_name = 'reservation.html'
-    #fields = ['res_eventdate','res_size','res_slot','renter_email','property_name']
+    fields = ('property_availability_date','res_size','res_slot','renter_email','property_name')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

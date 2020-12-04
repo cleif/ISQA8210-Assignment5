@@ -19,17 +19,18 @@
         <div>
             {% for parkprops in parkprops  %}
             {% if parkprops.park_name.id == object.id %}
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">{{ parkprops.property_name }}</h5>
-                    <div>
-                        <img src={{parkprops.park_image}} alt=""   style="display: block; width: 250px; height: 150px;">
+            <div class="card-deck">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ parkprops.property_name }}</h5>
+                        <div>
+                            <img src={{parkprops.park_image}} alt=""   style="display: block; width: 250px; height: 150px;">
+                        </div>
+                        <div>
+                            <p class="card-text">Location: {{ parkprops.property_location }} | Capacity: {{ parkprops.property_guest_capacity }} | Price: {{ parkprops.property_price }}</p>
+                            <p class="card-text">Description: {{ parkprops.property_description }}</p>
+                        </div>
                     </div>
-                    <div right>
-                        <p class="card-text">Location: {{ parkprops.property_location }} | Capacity: {{ parkprops.property_guest_capacity }} | Price: {{ parkprops.property_price }}</p>
-                        <p class="card-text">Description: {{ parkprops.property_description }}</p>
-                    </div>
-                </div>
                     <div class="card-footer">
                             <a class="btn btn-info" href="{% url 'propavailability_list' parkprops.pk %}">Availability</a>
                         {% if user.is_authenticated %}
@@ -38,7 +39,9 @@
                         {% endif %}
                     </div>
                 </div>
+            </div>
             <p></p>
+            {% if forloop.counter|divisibleby:3 %}{% endif %}
             {% endif %}
             {% endfor %}
             </div>

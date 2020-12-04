@@ -77,7 +77,6 @@ class PropertyStatus(models.Model):
 
 class Reservation(models.Model):
     id = models.UUIDField(primary_key=True,default=uuid.uuid4,blank=False)
-    res_eventdate = models.DateTimeField(auto_now=False, auto_now_add=False)
     res_slot = models.CharField(max_length=255,blank=True,null=True,default='')
     res_size = models.IntegerField(null=True,blank=True)
     res_status = models.CharField(max_length=255,blank=True,null=True,default='')

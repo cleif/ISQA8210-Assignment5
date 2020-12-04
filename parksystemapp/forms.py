@@ -9,7 +9,7 @@ class ReservationForm(ModelForm):
     
     class Meta:
         model = Reservation
-        fields = ['res_eventdate','res_size','res_slot','renter_email','property_name']
-        widgets = {
-            'res_eventdate': DateTimeInput(),
-        }
+        fields = ['res_size','res_slot','renter_email','property_name']
+        #widgets = {
+        #    'res_eventdate': DateTimeInput(),
+        #}
