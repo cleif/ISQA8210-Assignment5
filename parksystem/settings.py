@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'parksystemapp',
     'django.contrib.postgres',
+    'cart',
 ]
 
 MIDDLEWARE = [
