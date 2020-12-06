@@ -5,7 +5,6 @@ from django.views.generic import ListView, DetailView, TemplateView
 from .models import models, Park, ParkProperty, ParkPropertyAvailability,PropertyStatus,Reservation,Transaction
 from django.urls import reverse_lazy,reverse
 from PIL import Image
-from .forms import ReservationForm
 from django.http import HttpResponseRedirect, HttpResponse
 from datetime import datetime
 import csv
@@ -121,7 +120,7 @@ class PropAvailabilityDetailView(LoginRequiredMixin,DetailView):
 class PropReservationCreateView(LoginRequiredMixin,CreateView):
     model = Reservation
     template_name = 'reservation.html'
-    fields = ('property_availability_date','res_size','res_slot','renter_email','property_name')
+    fields = ('res_size','res_slot','property_availability_id','renter_email')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -131,10 +130,11 @@ class PropReservationCreateView(LoginRequiredMixin,CreateView):
     def form_valid(self,form):
         form.instance.author = self.request.user
         form.instance.propertyava = get_object_or_404(ParkPropertyAvailability, pk=self.kwargs['pk'])
-        return super().form_valid(form)
+        return super(PropReservationCreateView, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse('propavailability_list')
+        return reverse('park_list')
+
     
 
 class PropReservationDetailView(LoginRequiredMixin, DetailView):

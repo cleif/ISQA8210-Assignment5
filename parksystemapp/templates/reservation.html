@@ -6,7 +6,6 @@
       <div class="card-header"><h2>Create a Park Property</h2></div>
       <div class="card-body">
         <form method="POST" class="parkprop-form">{% csrf_token %}
-            <!-- {{ form.res_eventdate|as_crispy_field}} -->
             {{ form|crispy }}
             <br>
             <button type="submit" align="center" class="save btn btn-primary">Save</button>

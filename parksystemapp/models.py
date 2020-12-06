@@ -82,7 +82,6 @@ class Reservation(models.Model):
     res_status = models.CharField(max_length=255,blank=True,null=True,default='')
     renter_email = models.ForeignKey("users.CustomUser", on_delete=models.CASCADE)
     property_availability_id = models.ForeignKey("ParkPropertyAvailability", on_delete=models.CASCADE,related_name='res.propavailbilityid+')
-    property_name = models.ForeignKey("ParkProperty",on_delete=models.CASCADE,related_name='res.propertyname+')
 
     def __str__(self):
         return str(self.id)

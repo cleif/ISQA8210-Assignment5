@@ -37,13 +37,17 @@ class PropertyStatusAdmin(admin.ModelAdmin):
 
 class ReservationAdmin(admin.ModelAdmin):
     model = Reservation
-    list_display = ('id','get_parkname','property_name','res_slot','res_size','res_status','renter_email','get_resdate','get_resstart','get_resend')
-    list_filter = ('id','property_name','res_slot','res_size','res_status','renter_email')
-    ordering = ['property_name']
+    list_display = ('id','get_parkname','get_propertyname','res_slot','res_size','res_status','renter_email','property_availability_id','get_resdate','get_resstart','get_resend')
+    list_filter = ('id','res_slot','res_size','res_status','renter_email')
+    ordering = ['id']
 
     def get_parkname(self,obj):
         return obj.property_availability_id.property_name.park_name.park_name
     get_parkname.short_description = 'park_name'
+
+    def get_propertyname(self,obj):
+        return obj.property_availability_id.property_name
+    get_parkname.short_description = 'property_name'
 
     def get_resdate(self,obj):
         return obj.property_availability_id.property_availability_date
