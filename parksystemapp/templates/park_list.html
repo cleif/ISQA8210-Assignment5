@@ -1,41 +1,25 @@
 {% extends 'base.html' %}
 {% block content %}
-    <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Park Reservation System</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    </head>
-    <body>
-    <p></p>
-    <div class="row">
-    </div>
-    <div class="card-deck" >
+<p></p>
+    <div class="card-deck">
         {% for parks in parks  %}
-            <div class="card">
-                <div class="card-body">
-                    <img class="card-img-top" src={{parks.park_image}} alt="">
-                    <h5 class="card-title">{{ parks.park_name }}</h5>
-                    <p class="card-subtitle">{{ parks.park_addr }}</p>
-                    <p class="card-text">{{ parks.park_contact }}</p>
-                </div>
-                <div class="card-footer">
-                    <a class="btn btn-info" href="{% url 'park_details' parks.pk %}">Property Details</a>
-                    {% if user.is_authenticated %}
-                    <a class="btn btn-warning" href="{% url 'park_edit' parks.pk %}">Edit</a>
-                    <a class="btn btn-danger" href="{% url 'park_delete' parks.pk %}">Delete</a>
-                    {% endif %}
-                </div>
+        <div class="card">
+            <div class="card-body" style="max-wdith: 300">
+                <img class="card-img-top" src={{parks.park_image}} alt="">
+                <h5 class="card-title">{{ parks.park_name }}</h5>
+                <p class="card-subtitle">{{ parks.park_addr }}</p>
+                <p class="card-text">{{ parks.park_contact }}</p>
             </div>
-        {% if forloop.counter|divisibleby:3 %}{% endif %}
-        {% endfor %}
+            <div class="card-footer">
+                <a class="btn btn-info" href="{% url 'park_details' parks.pk %}">Property Details</a>
+                <a class="btn btn-warning" href="{% url 'park_edit' parks.pk %}">Edit</a>
+                <a class="btn btn-danger" href="{% url 'park_delete' parks.pk %}">Delete</a>
+            </div>
+        </div>  
+        {% if forloop.counter|divisibleby:3 %}
     </div>
-    <p></p>
-        <div class="row" align="center">
-            <a href="{% url 'park_add' %}" class="row"><span
-                    class="btn btn-primary">Add Park</span></a>
-        </div>
-    </div>
-    </body>
-    </html>
+    <br>
+        <div class="card-deck">
+        {% endif %}
+    {% endfor %}
 {% endblock %}
