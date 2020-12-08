@@ -120,7 +120,7 @@ class PropAvailabilityDetailView(LoginRequiredMixin,DetailView):
 class PropReservationCreateView(LoginRequiredMixin,CreateView):
     model = Reservation
     template_name = 'reservation.html'
-    fields = ('res_size','res_slot','property_availability_id','renter_email')
+    fields = ['res_size','res_slot','property_availability_id','renter_email']
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -128,7 +128,7 @@ class PropReservationCreateView(LoginRequiredMixin,CreateView):
         return context
     
     def form_valid(self,form):
-        form.instance.author = self.request.user
+        form.instance.renter_email = self.request.user.username
         form.instance.propertyava = get_object_or_404(ParkPropertyAvailability, pk=self.kwargs['pk'])
         return super(PropReservationCreateView, self).form_valid(form)
 
