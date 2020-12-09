@@ -27,9 +27,9 @@ class ParkPropertyAvailabilityAdmin(admin.ModelAdmin):
 
 class PropertyStatusAdmin(admin.ModelAdmin):
     model = PropertyStatus
-    list_display = ('id','property_name','reservation_id','get_renteremail','property_report_time','property_status_description','property_expenses','property_status_notes','maint_staff_email')
-    list_filter = ('id','property_name','reservation_id','property_report_time','property_status_description','property_expenses','property_status_notes','maint_staff_email')
-    ordering = ['property_name']
+    list_display = ('id','reservation_id','get_renteremail','property_report_time','property_status_description','property_expenses','property_status_notes','maint_staff_email')
+    list_filter = ('id','reservation_id','property_report_time','property_status_description','property_expenses','property_status_notes','maint_staff_email')
+    ordering = ['id']
 
     def get_renteremail(self,obj):
         return obj.reservation_id.renter_email

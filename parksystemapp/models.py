@@ -62,7 +62,6 @@ class PropertyStatus(models.Model):
     property_expenses = models.IntegerField(null=True,blank=True)
     property_status_notes = models.TextField(default='')
     maint_staff_email = models.ForeignKey("users.CustomUser", on_delete=models.CASCADE)
-    property_name = models.ForeignKey("ParkProperty",on_delete=models.CASCADE,related_name='status.propertyname+')
     reservation_id = models.ForeignKey("Reservation",on_delete=models.CASCADE,related_name='status.resid+')
 
     def __str__(self):
