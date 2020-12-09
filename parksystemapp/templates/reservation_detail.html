@@ -1,19 +1,35 @@
 {% extends 'base.html' %}
 {% block content %}
-
+<p></p>
 <div style="display: flex;
 justify-content: center;
 align-items: center;
 height: auto;">
-    <div class="card" style="width: 18rem; margin-top: 20px;">
+    <div class="card">
     <div class="card-body">
-      <h5 class="card-title">Reservation for {{ object.property_availability_id.property_name }}</h5>
-      <p class="card-text">Here are the details of your park reservation.</p>
+      <h5 class="card-title">Reservation Details </h5>
+      <p class="card-text">Here are the details of your <b>{{ object.property_availability_id.property_name }}</b> reservation at <i>{{ object.property_availability_id.property_name.park_name.park_name }}</i>.</p>
     </div>
     <ul class="list-group list-group-flush">
-      <li class="list-group-item">{{object.property_name}}</li>
-      <li class="list-group-item">{{object.res_size}}</li>
-      <li class="list-group-item">{{object.renter_email.first_name}}</li>
+      <li class="list-group-item"><b>Property Details:</b><br>
+        <b>Location:</b> {{object.property_availability_id.property_name.property_location}} <br>
+        <b>Date:</b> {{object.property_availability_id.property_availability_date}} | <b>Time:</b> {{object.property_availability_id.property_availability_starttime}} - {{object.property_availability_id.property_availability_endtime}}<br>
+        <b>Park Address:</b> {{object.property_availability_id.property_name.park_name.park_addr}}<br>
+        <b>Guests:</b> {{object.res_size}} | <b>Capacity:</b> {{object.property_availability_id.property_name.property_guest_capacity}}
+      </li>
+      <li class="list-group-item"><b>Renter Info:</b><br>
+        {{object.renter_email.first_name}} {{object.renter_email.last_name}}<br>
+        {{object.renter_email.user_street_addr}} {{object.renter_email.user_city}}, {{object.renter_email.user_state}} {{object.renter_email.user_zip}}<br>
+        {{object.renter_email.user_phone}}
+      </li>
+      <li class="list-group-item"><b>Park Property Contact:</b><br>
+        {{object.property_availability_id.property_name.park_name.park_contact.first_name}} {{object.property_availability_id.property_name.park_name.park_contact.last_name}}<br>
+        <b>Phone:</b> {{object.property_availability_id.property_name.park_name.park_contact.user_phone}} | 
+        <b>Email:</b> {{object.property_availability_id.property_name.park_name.park_contact.email}}
+      </li>
+      <li class="list-group-item"><b>Reservation Status Details:</b><br>
+        <b>COMING SOON</b>
+      </li>
     </ul>
     <div class="card-body">
       <a class="btn btn-danger" href="{% url 'reservation_delete' object.pk %}" class="card-link">Cancel Reservation</a>
