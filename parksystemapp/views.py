@@ -98,7 +98,7 @@ class ParkPropertyDeleteView(LoginRequiredMixin,DeleteView):
 class ParkPropertyCreateView(LoginRequiredMixin,CreateView):
     model = ParkProperty
     template_name = 'parkprop_add.html'
-    fields = ('park_name', 'property_name', 'property_description', 'property_guest_capacity','property_location','property_price','property_image','property_slot')
+    fields = ('park_name', 'property_name', 'property_description', 'property_guest_capacity','property_location','property_price','property_image')
     login_url = 'login'
 
     def form_valid(self, form):
@@ -153,6 +153,9 @@ class PropReservationListView(LoginRequiredMixin,ListView):
     template_name = 'reservation_list.html'
 
 
+#...Data Updates...
+class UpdateDataTemplateView(LoginRequiredMixin,TemplateView):
+    template_name = "update_data.html"
 
 
 #....Reporting Exports...

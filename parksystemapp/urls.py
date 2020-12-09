@@ -16,6 +16,7 @@ from .views import (
     PropReservationDeleteView,
     PropReservationListView,
     ReportTemplateView,
+    UpdateDataTemplateView,
 )
 
 
@@ -36,7 +37,8 @@ urlpatterns = [
     path('parkprop/<uuid:pk>/cancel/',PropReservationDeleteView.as_view(), name='reservation_delete'),
     path('parkprop/<uuid:pk>/reservation_list/',PropReservationListView.as_view(), name='reservation_list'),
 
-
+    #...Data Updates...
+    path("UpdateData", UpdateDataTemplateView.as_view(), name="update_data"),
     #...Data Exports...
     path('reporting', ReportTemplateView.as_view(), name='reporting'),
     path('export_Park', views.export_Park_toCSV, name='export_Park'),
