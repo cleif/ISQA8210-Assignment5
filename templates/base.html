@@ -29,6 +29,20 @@
       </button>
 
     <div id="wrapper">
+      <ul class="sidebar navbar-nav">
+        {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'reservation_list' user.pk %}">
+                  <span>My Reservations</span>
+              </a>
+             </li>
+
+           {% else %}
+                <li></li>
+          {% endif %}
+
+      </ul>
+    </div>
       <!-- Sidebar
       <ul class="sidebar navbar-nav">
         {% if user.is_authenticated %}
