@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container" style="margin-top: 20px;">
     <div class="card text-white bg-dark mb-3">
-      <div class="card-header"><h2>Create a Park Property</h2></div>
+      <div class="card-header"><h2>Reserve {{ object.property_name.property_name }} </h2></div>
       <div class="card-body">
         <form method="POST" class="parkprop-form">{% csrf_token %}
             {{ form|crispy }}
