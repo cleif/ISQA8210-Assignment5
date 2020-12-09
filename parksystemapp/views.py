@@ -121,7 +121,7 @@ class PropAvailabilityDetailView(LoginRequiredMixin,DetailView):
 class PropReservationCreateView(LoginRequiredMixin,CreateView):
     model = Reservation
     template_name = 'reservation.html'
-    fields = ['res_size','property_availability_id']
+    fields = ['res_size']
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -130,7 +130,7 @@ class PropReservationCreateView(LoginRequiredMixin,CreateView):
     
     def form_valid(self,form):
         form.instance.renter_email = self.request.user
-        #form.instance.propertyava = get_object_or_404(ParkPropertyAvailability, pk=self.kwargs['pk'])
+        form.instance.property_availability_id = get_object_or_404(ParkPropertyAvailability, pk=self.kwargs['pk'])
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -144,7 +144,7 @@ class PropReservationDeleteView(LoginRequiredMixin,DeleteView):
     model = Reservation
     template_name = 'reservation_delete.html'
     def get_success_url(self):
-        return reverse('parkprop_list')
+        return reverse('park_list')
 
 class PropReservationListView(LoginRequiredMixin,ListView):
     model = Reservation
