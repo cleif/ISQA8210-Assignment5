@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+<!-- {% load crispy_forms_tags %} -->
+
+
+{% block content %}
+  <div class="container">
+    <div class="row" style="justify-content: center;">
+      <h2 >Export Data</h2>
+    </div>
+    <div class="row" style="justify-content: center;">
+        {% if user.is_authenticated %}
+      <div class="col-5">
+        <a href="{% url 'park_add' %}" class="btn btn-block btn-info">Add New Park</a>
+        <a href="{% url 'parkprop_add' %}" class="btn btn-block btn-info">Add New Park Property</a>
+      </div>
+        {% else %}
+        {% endif %}
+    </div>
+  </div>
+{% endblock content %}
+
+
