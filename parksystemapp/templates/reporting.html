@@ -1,26 +1,18 @@
 {% extends 'base.html' %}
-<!-- {% load crispy_forms_tags %} -->
-
-
 {% block content %}
-  <div class="container">
-    <div class="row" style="justify-content: center;">
-      <h2 >Export Data</h2>
-    </div>
-    <div class="row" style="justify-content: center;">
-        {% if user.is_authenticated %}
-      <div class="col-5">
+<div class="container" style="margin-top: 20px;">
+    <div class="card text-white bg-dark mb-3">
+    <div class="card-header"><h2>Reporting Options</h2></div>
+      <div class="card-body">
         <a href="{% url 'export_Park' %}" class="btn btn-block btn-info">Export Park Data</a>
         <a href="{% url 'export_ParkProperty' %}" class="btn btn-block btn-info">Export Property Data</a>
         <a href="{% url 'export_ParkPropertyAvailability' %}" class="btn btn-block btn-info">Export Availability Data</a>
         <a href="{% url 'export_PropertyStatus' %}" class="btn btn-block btn-info">Export Reservation Status Data</a>
         <a href="{% url 'export_Reservation' %}" class="btn btn-block btn-info">Export Reservation Data</a>
         <a href="{% url 'export_Transaction' %}" class="btn btn-block btn-info">Export Transaction Data</a>
-      </div>
-        {% else %}
-        {% endif %}
-    </div>
-  </div>
+      </div>  
+</div>
+</div>
 {% endblock content %}
 
 

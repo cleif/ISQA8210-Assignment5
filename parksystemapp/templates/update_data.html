@@ -5,14 +5,33 @@
 {% block content %}
   <div class="container">
     <div class="row" style="justify-content: center;">
-      <h2 >Export Data</h2>
+      <h2 >Park Data Management</h2>
     </div>
     <div class="row" style="justify-content: center;">
         {% if user.is_authenticated %}
-      <div class="col-5">
-        <a href="{% url 'park_add' %}" class="btn btn-block btn-info">Add New Park</a>
-        <a href="{% url 'parkprop_add' %}" class="btn btn-block btn-info">Add New Park Property</a>
-        <a href="{% url 'propavailability_create' %}" class="btn btn-block btn-info">Add New Availability to Property</a>
+      <div class="card-deck">
+        <div class="card text-white bg-dark mb-3">
+          <div class="card-header"><h5>Create Operations</h52>
+            <div class="card-body">
+              <a href="{% url 'park_add' %}" class="btn btn-block btn-info">Add New Park</a>
+              <a href="{% url 'parkprop_add' %}" class="btn btn-block btn-info">Add New Park Property</a>
+              <a href="{% url 'propavailability_create' %}" class="btn btn-block btn-info">Add New Property Availability</a>
+            </div>
+            <div class="card-footer">
+            </div>
+          </div>  
+        </div>
+        <div class="card text-white bg-dark mb-3">
+          <div class="card-header"><h5>Update/Delete Operations</h5>
+            <div class="card-body">
+              <a href="{% url 'park_list' %}" class="btn btn-block btn-info">Modify Existing Parks</a>
+              <a href="{% url 'parkprop_list' %}" class="btn btn-block btn-info">Modify Existing Park Property</a>
+              <button class="btn btn-block btn-info" disabled>Admin Panel Access</button>
+            </div>
+            <div class="card-footer">
+            </div>
+          </div>
+        </div>
       </div>
         {% else %}
         {% endif %}
