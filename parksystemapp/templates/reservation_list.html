@@ -3,7 +3,7 @@
 <p></p>
     <div class="card-deck">
         {% for reservation in object_list  %}
-            <div class="card">
+            <div class="card text-white bg-dark mb-3">
                 <div class="card-body" style="max-width: 300;">
                 <h5 class="card-title">{{ reservation.property_availability_id.property_name }}</h5>
                 <p class="card-text"><b>Reserverd for:</b> {{ reservation.renter_email.first_name }} {{reservation.renter_email.last_name}}</p>
