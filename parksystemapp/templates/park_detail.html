@@ -1,21 +1,26 @@
 {% extends 'base.html' %}
+{% load filters %}
 
 {% block content %}
 <p></p>
 <div class="card-deck">
     {% for parkprops in parkprops  %}
     {% if parkprops.park_name.id == object.id %}
-        <div class="card">
+        <div class="card text-white bg-dark mb-3">
             <div class="card-body" style="max-width: 300;">
-                <h5 class="card-title">{{ parkprops.property_name }}</h5>
                 <img class="card-img-top" src={{parkprops.property_image}} alt="">
-                <p class="card-text">Location: {{ parkprops.property_location }} | Capacity: {{ parkprops.property_guest_capacity }} | Price: {{ parkprops.property_price }}</p>
-                <p class="card-text">Description: {{ parkprops.property_description }}</p>
+                <h5 class="card-title">{{ parkprops.property_name }}</h5>
+                <p class="card-text"><b>Location:</b> {{ parkprops.property_location }}<br>
+                <b>Capacity:</b> {{ parkprops.property_guest_capacity }}<br>
+                <b>Price:</b> ${{ parkprops.property_price }}</p>
+                <p class="card-text"><b>Description:</b> {{ parkprops.property_description }}</p><br>
             </div>
             <div class="card-footer">
                 <a class="btn btn-info" href="{% url 'propavailability_list' parkprops.pk %}">Availability</a>
-                <a class="btn btn-warning" href="{% url 'parkprop_edit' parkprops.pk %}">Edit</a>
-                <a class="btn btn-danger" href="{% url 'parkprop_delete' parkprops.pk %}">Delete</a>
+                {% if request.user|has_group:"Admin" %}
+                    <a class="btn btn-warning" href="{% url 'parkprop_edit' parkprops.pk %}">Edit</a>
+                    <a class="btn btn-danger" href="{% url 'parkprop_delete' parkprops.pk %}">Delete</a>
+                {% endif %}
             </div>
         </div>   
     {% if forloop.counter|divisibleby:3 %}

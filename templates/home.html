@@ -2,16 +2,17 @@
 <!-- {% load crispy_forms_tags %} -->
 {% block content %}
 <p></p>
-<div class="jumbotron">
+<div class="jumbotron text-white bg-dark mb-3">
   {% if user.is_authenticated %}
-  <div class="container">
+  <div class="container ">
     <h1 class="display-4" style="text-align: center;">Albuquerque Parks and Recreation</h1>
-    <a class="btn btn-block btn-success" href="{% url 'park_list' %}">View parks</a>
+    <p></p>
+    <a class="btn btn-block btn-info" href="{% url 'park_list' %}">View parks</a>
   </div>
   </div>
 </div>
   {% else %}
-<div class="jumbotron">
+<div class="jumbotron text-white bg-dark mb-3">
   <div class="container">
     <div class="row" style="justify-content: center;">
       <h2 >View Parks or Sign-Up/Login to Reserve</h2>
@@ -20,7 +21,7 @@
 
         {% if user.is_authenticated %}
       <div class="col-5">
-        <a href="{% url 'park_list' %}" class="btn btn-block btn-success">View parks</a>
+        <a href="{% url 'park_list' %}" class="btn btn-block btn-info">View parks</a>
       </div>
              {% else %}
           {% endif %}

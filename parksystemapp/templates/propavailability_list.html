@@ -5,10 +5,10 @@
 <div class="card-deck">
     {% for propertyava in propertyava  %}
     {% if propertyava.property_name.id == object.id %}
-        <div class="card">
+        <div class="card text-white bg-dark mb-3">
             <div class="card-body" style="max-width: 300;">
-                <p class="card-text">{{ propertyava.property_availability_date }}</p>
-                <p class="card-text">{{ propertyava.property_availability_starttime }} to {{ propertyava.property_availability_endtime }}</p>
+                <p class="card-text"><b>Date:</b> {{ propertyava.property_availability_date }}</p>
+                <p class="card-text"><b>Time Slot:</b> {{ propertyava.property_availability_starttime }} to {{ propertyava.property_availability_endtime }}</p>
             </div>
             <div class="card-footer">
                 <a class="btn btn-info" href="{% url 'reservation' propertyava.pk %}">Reserve</a>

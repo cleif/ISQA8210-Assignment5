@@ -1,5 +1,5 @@
 {% load staticfiles %}
-<!doctype html>
+{% load filters %}
 <html lang="en">
   <head>
     <!-- Required meta tags -->
@@ -85,10 +85,12 @@
                 aria-labelledby="userMenu" >
                   <a class="dropdown-item" href="{% url 'account' %}">Account</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="{% url 'update_data' %}">Data Management</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="{% url 'reporting' %}">Reporting</a>
-                  <div class="dropdown-divider"></div>
+                  {% if request.user|has_group:"Admin" %}
+                    <a class="dropdown-item" href="{% url 'update_data' %}">Data Management</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{% url 'reporting' %}">Reporting</a>
+                    <div class="dropdown-divider"></div>
+                  {% endif %}
                   <a class="dropdown-item" href="{% url 'logout' %}">
                   Log Out</a>
                 </div>
