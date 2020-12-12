@@ -16,7 +16,7 @@
                 </p>
             </div>
             <div class="card-footer">
-                {% if request.user|has_group:"Admin" %}
+                {% if request.user|has_group:"maintenanceworker" %}
                 <a href="{% url 'propstatus_edit' propstatuses.pk %}" class="btn btn-warning">Edit</a>
                 <a href="{% url 'propstatus_delete' propstatuses.pk %}" onclick="return confirm('Are you sure you want to delete?')" class="btn btn-danger">Delete</a>
                 {% endif %}
