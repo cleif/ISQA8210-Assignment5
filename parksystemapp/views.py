@@ -267,4 +267,54 @@ def export_Transaction_toCSV(request):
     for row in Transaction.objects.values(*fields):
         writer.writerow([row[field] for field in fields])
     return response
+
+class PropertyStatusEditView(LoginRequiredMixin, UpdateView):
+        model = PropertyStatus
+        fields = (
+           'reservation_id', 'property_report_time', 'property_status_description',
+            'property_expenses',
+            'property_status_notes', 'maint_staff_email')
+        template_name = 'propstatus_edit.html'
+
+        def form_valid(self, form):
+            form.instance.propstatus = get_object_or_404(PropertyStatus, pk=self.kwargs['pk'])
+            form.instance.author = self.request.user
+            return super().form_valid(form)
+
+        def get_success_url(self):
+            return reverse('propstatus_list')
+
+
+class PropertyStatusDeleteView(LoginRequiredMixin, DeleteView):
+    model = PropertyStatus
+    template_name = 'propstatus_delete.html'
+
+    def get_success_url(self):
+        return reverse('propstatus_list')
+
+
+class PropertyStatusCreateView(LoginRequiredMixin, CreateView):
+    model = PropertyStatus
+    template_name = 'propstatus_add.html'
+    fields = (
+        'reservation_id', 'property_report_time', 'property_status_description', 'property_expenses',
+        'property_status_notes', 'maint_staff_email')
+    login_url = 'login'
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('propstatus_list')
+
+
+class PropertyStatusListView(LoginRequiredMixin, ListView):
+    model = PropertyStatus
+    template_name = 'propstatus_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['propstatuses'] = PropertyStatus.objects.all()
+        return context
    

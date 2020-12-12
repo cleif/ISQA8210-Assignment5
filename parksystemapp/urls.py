@@ -17,7 +17,8 @@ from .views import (
     PropReservationListView,
     ReportTemplateView,
     UpdateDataTemplateView,
-    PropAvailabilityCreateView,
+    PropAvailabilityCreateView, PropertyStatusEditView, PropertyStatusDeleteView, PropertyStatusCreateView,
+    PropertyStatusListView,
 )
 
 
@@ -38,6 +39,10 @@ urlpatterns = [
     path('parkprop/<uuid:pk>/reserve_detail', PropReservationDetailView.as_view(), name='reservation_detail'),
     path('parkprop/<uuid:pk>/cancel/',PropReservationDeleteView.as_view(), name='reservation_delete'),
     path('parkprop/<uuid:pk>/reservation_list/',PropReservationListView.as_view(), name='reservation_list'),
+    path('propstatus/<uuid:pk>/edit/', PropertyStatusEditView.as_view(), name='propstatus_edit'),
+    path('propstatus/<uuid:pk>/delete/', PropertyStatusDeleteView.as_view(), name='propstatus_delete'),
+    path('propstatusnew/', PropertyStatusCreateView.as_view(), name='propstatus_add'),
+    path('propstatuslist/', PropertyStatusListView.as_view(), name='propstatus_list'),
 
     #...Data Updates...
     path("UpdateData", UpdateDataTemplateView.as_view(), name="update_data"),
