@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block content %}
+    <html>
+
+     <style>
+
+         body {
+            background-color: #7abaff;
+        }
+
+    </style>
+    <body>
+
+    <div class="row">
+        <h2 style="padding-left: 15Px">Park Property Status Information</h2>
+    </div>
+    <div >
+        <table class="table table-striped table-bordered table-hover" >
+            <thead>
+            <tr class="bg-info">
+               {% comment %} <th>Property Name</th>{% endcomment %}
+                <th>Property Report Time</th>
+                <th>Property Status Description</th>
+                <th>Property Expenses</th>
+                <th>Property Status Notes</th>
+                <th>Maintenance Staff Contact</th>
+                <th>Reservation ID</th>
+                <th colspan="2">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for propstatuses in propstatuses %}
+                <tr>
+                   {% comment %} <td class="nowrap">{{ propstatuses.property_name }}</td>{% endcomment %}
+                    <td class="nowrap">{{ propstatuses.property_report_time }}</td>
+                    <td class="nowrap">{{ propstatuses.property_status_description }}</td>
+                    <td class="nowrap">{{ propstatuses.property_expenses }}</td>
+                    <td class="nowrap">{{ propstatuses.property_status_notes }}</td>
+                    <td class="nowrap">{{ propstatuses.maint_staff_email }}</td>
+                    <td class="nowrap">{{ propstatuses.reservation_id }}</td>
+
+                    <td class="nowrap"><a href="{% url 'propstatus_edit' propstatuses.pk %}"
+                           class="btn btn-warning">Edit</a></td>
+                    <td class="nowrap"><a href="{% url 'propstatus_delete' propstatuses.pk %}"
+                           onclick="return confirm('Are you sure you want to delete?')"
+                           class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="row" align="center">
+            <a href="{% url 'propstatus_add' %}" class="row"><span
+                    class="btn btn-primary">Add Property Status</span></a>
+        </div>
+    </div>
+    </body>
+    </html>
+{% endblock %}
