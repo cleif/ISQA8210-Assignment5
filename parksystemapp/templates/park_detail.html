@@ -1,50 +1,33 @@
 {% extends 'base.html' %}
+{% load filters %}
 
 {% block content %}
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Park Reservation System</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    </head>
-
-     <style>
-
-         body {
-            background-color: #7abaff;
-        }
-    </style>
-    <body>
-        <h2 style="padding-left: 15Px">Park Property Information for {{ object.park_name }}</h2>
-        <div>
-            {% for parkprops in parkprops  %}
-            {% if parkprops.park_name.id == object.id %}
-            <div class="card-deck">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ parkprops.property_name }}</h5>
-                        <div>
-                            <img src={{parkprops.park_image}} alt=""   style="display: block; width: 250px; height: 150px;">
-                        </div>
-                        <div>
-                            <p class="card-text">Location: {{ parkprops.property_location }} | Capacity: {{ parkprops.property_guest_capacity }} | Price: {{ parkprops.property_price }}</p>
-                            <p class="card-text">Description: {{ parkprops.property_description }}</p>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                            <a class="btn btn-info" href="{% url 'propavailability_list' parkprops.pk %}">Availability</a>
-                        {% if user.is_authenticated %}
-                            <a class="btn btn-warning" href="{% url 'parkprop_edit' parkprops.pk %}">Edit</a>
-                            <a class="btn btn-danger" href="{% url 'parkprop_delete' parkprops.pk %}">Delete</a>
-                        {% endif %}
-                    </div>
-                </div>
+<p></p>
+<div class="card-group">
+    {% for parkprops in parkprops  %}
+    {% if parkprops.park_name.id == object.id %}
+        <div class="card text-white bg-dark mb-3" style="max-width: 300; margin: 1%;">
+            <div class="card-body" style="max-width: 300;">
+                <img class="card-img-top" src={{parkprops.property_image}} alt="">
+                <h5 class="card-title">{{ parkprops.property_name }}</h5>
+                <p class="card-text"><b>Location:</b> {{ parkprops.property_location }}<br>
+                <b>Capacity:</b> {{ parkprops.property_guest_capacity }}<br>
+                <b>Price:</b> ${{ parkprops.property_price }}</p>
+                <p class="card-text"><b>Description:</b> {{ parkprops.property_description }}</p><br>
             </div>
-            <p></p>
-            {% if forloop.counter|divisibleby:3 %}{% endif %}
+            <div class="card-footer">
+                <a class="btn btn-info" href="{% url 'propavailability_list' parkprops.pk %}">Availability</a>
+                {% if request.user|has_group:"Admin" %}
+                    <a class="btn btn-warning" href="{% url 'parkprop_edit' parkprops.pk %}">Edit</a>
+                    <a class="btn btn-danger" href="{% url 'parkprop_delete' parkprops.pk %}">Delete</a>
+                {% endif %}
+            </div>
+        </div>   
+    {% if forloop.counter|divisibleby:3 %}
+</div>
+    <br>
+            <div class="card-group">
             {% endif %}
-            {% endfor %}
-            </div>
-    </body>
-</html>
+    {% endif %}
+    {% endfor %}
 {% endblock %}

@@ -29,7 +29,6 @@ class ParkProperty(models.Model):
     property_location = models.CharField(max_length=255,blank=True,null=True,default='')
     property_price = models.IntegerField(null=True,blank=True)
     property_image = models.TextField(default='') #reference external URL for Image
-    property_slot = models.CharField(max_length=50,blank=True,null=True,default='2 hours')
     
     def __str__(self):
         return self.property_name
@@ -62,7 +61,6 @@ class PropertyStatus(models.Model):
     property_expenses = models.IntegerField(null=True,blank=True)
     property_status_notes = models.TextField(default='')
     maint_staff_email = models.ForeignKey("users.CustomUser", on_delete=models.CASCADE)
-    property_name = models.ForeignKey("ParkProperty",on_delete=models.CASCADE,related_name='status.propertyname+')
     reservation_id = models.ForeignKey("Reservation",on_delete=models.CASCADE,related_name='status.resid+')
 
     def __str__(self):
@@ -82,7 +80,6 @@ class Reservation(models.Model):
     res_status = models.CharField(max_length=255,blank=True,null=True,default='')
     renter_email = models.ForeignKey("users.CustomUser", on_delete=models.CASCADE)
     property_availability_id = models.ForeignKey("ParkPropertyAvailability", on_delete=models.CASCADE,related_name='res.propavailbilityid+')
-    property_name = models.ForeignKey("ParkProperty",on_delete=models.CASCADE,related_name='res.propertyname+')
 
     def __str__(self):
         return str(self.id)

@@ -1,32 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Park Reservation System</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    </head>
-<body>
-    <h2 style="padding-left: 15Px">Park Property Availability Information for {{ object.property_name }}</h2>
-    <div>
-        {% for propertyava in propertyava  %}
-        {% if propertyava.property_name.id == object.id %}
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">{{ propertyava.property_name }}</h5>
-                    <p class="card-text">{{ propertyava.property_availability_date }}</p>
-                    <p class="card-text">{{ propertyava.property_availability_starttime }}</p>
-                    <p class="card-text">{{ propertyava.property_availability_endtime }}</p>
-                </div>
-                <div class="card-footer">
-                    <a class="btn btn-info" href="{% url 'reservation' propertyava.pk %}">Reserve</a>
-                </div>
+<p></p>
+<h2 style="padding-left: 15Px">{{ object.property_name }} Availability at {{ object.park_name.park_name }}</h2>
+<div class="card-group">
+    {% for propertyava in propertyava  %}
+    {% if propertyava.property_name.id == object.id %}
+        <div class="card text-white bg-dark mb-3" style="max-width: 300; margin: 1%;">
+            <div class="card-body" style="max-width: 300;">
+                <p class="card-text"><b>Date:</b> {{ propertyava.property_availability_date }}</p>
+                <p class="card-text"><b>Time Slot:</b> {{ propertyava.property_availability_starttime }} to {{ propertyava.property_availability_endtime }}</p>
             </div>
-            <p></p>
-        {% endif %}
-        {% endfor %}
-    </div>
-
-</body>
-</html>
+            <div class="card-footer">
+                <a class="btn btn-info" href="{% url 'reservation' propertyava.pk %}">Reserve</a>
+            </div>
+        </div>   
+    {% if forloop.counter|divisibleby:3 %}
+</div>
+    <br>
+            <div class="card-group">
+            {% endif %}
+    {% endif %}
+    {% endfor %}
 {% endblock %}

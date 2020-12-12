@@ -5,9 +5,9 @@ from django.views.generic import ListView, DetailView, TemplateView
 from .models import models, Park, ParkProperty, ParkPropertyAvailability,PropertyStatus,Reservation,Transaction
 from django.urls import reverse_lazy,reverse
 from PIL import Image
-from .forms import ReservationForm
 from django.http import HttpResponseRedirect, HttpResponse
 from datetime import datetime
+from .forms import ParkPropertyAvailabilityForm, PropertyStatusForm
 import csv
 
 
@@ -43,11 +43,11 @@ class ParkDeleteView(LoginRequiredMixin,DeleteView):
 class ParkCreateView(LoginRequiredMixin,CreateView):
     model = Park
     template_name = 'park_add.html'
-    fields = ('park_name', 'park_addr', 'park_image', 'park_contact')
+    fields = ('park_name', 'park_addr', 'park_image')
     login_url = 'login'
 
     def form_valid(self, form):
-        form.instance.author = self.request.user
+        form.instance.park_contact = self.request.user
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -98,7 +98,7 @@ class ParkPropertyDeleteView(LoginRequiredMixin,DeleteView):
 class ParkPropertyCreateView(LoginRequiredMixin,CreateView):
     model = ParkProperty
     template_name = 'parkprop_add.html'
-    fields = ('park_name', 'property_name', 'property_description', 'property_guest_capacity','property_location','property_price','property_image','property_slot')
+    fields = ('park_name', 'property_name', 'property_description', 'property_guest_capacity','property_location','property_price','property_image')
     login_url = 'login'
 
     def form_valid(self, form):
@@ -121,7 +121,7 @@ class PropAvailabilityDetailView(LoginRequiredMixin,DetailView):
 class PropReservationCreateView(LoginRequiredMixin,CreateView):
     model = Reservation
     template_name = 'reservation.html'
-    fields = ('property_availability_date','res_size','res_slot','renter_email','property_name')
+    fields = ['res_size']
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -129,33 +129,106 @@ class PropReservationCreateView(LoginRequiredMixin,CreateView):
         return context
     
     def form_valid(self,form):
-        form.instance.author = self.request.user
-        form.instance.propertyava = get_object_or_404(ParkPropertyAvailability, pk=self.kwargs['pk'])
+        form.instance.renter_email = self.request.user
+        form.instance.property_availability_id = get_object_or_404(ParkPropertyAvailability, pk=self.kwargs['pk'])
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('propavailability_list')
-    
+        return reverse('park_list')
 
 class PropReservationDetailView(LoginRequiredMixin, DetailView):
     model = Reservation
     template_name  = 'reservation_detail.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['propstatus'] = PropertyStatus.objects.all()
+        return context
+
+
 class PropReservationDeleteView(LoginRequiredMixin,DeleteView):
     model = Reservation
     template_name = 'reservation_delete.html'
     def get_success_url(self):
-        return reverse('parkprop_list')
+        return reverse('park_list')
 
 class PropReservationListView(LoginRequiredMixin,ListView):
     model = Reservation
     template_name = 'reservation_list.html'
 
+class PropAvailabilityCreateView(LoginRequiredMixin, CreateView):
+    model = ParkPropertyAvailability
+    template_name = 'propavailability_create.html'
+    form_class = ParkPropertyAvailabilityForm
+    #fields = ('property_name','property_availability_date', 'property_availability_starttime', 'property_availability_endtime')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['parkprops'] = ParkProperty.objects.all()
+        return context
+
+    def form_valid(self, form):
+        form.instance.park_contact = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('parkprop_list')
+
+class PropertyStatusEditView(LoginRequiredMixin, UpdateView):
+        model = PropertyStatus
+        fields = (
+           'reservation_id', 'property_report_time', 'property_status_description',
+            'property_expenses',
+            'property_status_notes', 'maint_staff_email')
+        template_name = 'propstatus_edit.html'
+
+        def form_valid(self, form):
+            form.instance.propstatus = get_object_or_404(PropertyStatus, pk=self.kwargs['pk'])
+            form.instance.author = self.request.user
+            return super().form_valid(form)
+
+        def get_success_url(self):
+            return reverse('parkprop_list')
 
 
+class PropertyStatusDeleteView(LoginRequiredMixin, DeleteView):
+    model = PropertyStatus
+    template_name = 'propstatus_delete.html'
+
+    def get_success_url(self):
+        return reverse('propstatus_list')
+
+
+class PropertyStatusCreateView(LoginRequiredMixin, CreateView):
+    model = PropertyStatus
+    template_name = 'propstatus_add.html'
+    form_class = PropertyStatusForm
+    #fields = ('reservation_id', 'property_report_time', 'property_status_description', 'property_expenses','property_status_notes', 'maint_staff_email')
+    login_url = 'login'
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('propstatus_list')
+
+
+class PropertyStatusListView(LoginRequiredMixin, ListView):
+    model = PropertyStatus
+    template_name = 'propstatus_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['propstatuses'] = PropertyStatus.objects.all()
+        return context
+   
+
+#...Data Updates...
+class UpdateDataTemplateView(LoginRequiredMixin,TemplateView):
+    template_name = "update_data.html"
 
 #....Reporting Exports...
-
 class ReportTemplateView(LoginRequiredMixin,TemplateView):
     template_name = 'reporting.html'
 
@@ -248,4 +321,3 @@ def export_Transaction_toCSV(request):
     for row in Transaction.objects.values(*fields):
         writer.writerow([row[field] for field in fields])
     return response
-   

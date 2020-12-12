@@ -16,6 +16,9 @@ from .views import (
     PropReservationDeleteView,
     PropReservationListView,
     ReportTemplateView,
+    UpdateDataTemplateView,
+    PropAvailabilityCreateView, PropertyStatusEditView, PropertyStatusDeleteView, PropertyStatusCreateView,
+    PropertyStatusListView,
 )
 
 
@@ -31,12 +34,18 @@ urlpatterns = [
     path('parkpropnew/', ParkPropertyCreateView.as_view(), name='parkprop_add'),
     path('parkproplist/', ParkPropertyListView.as_view(), name='parkprop_list'),
     path('parkprop/<uuid:pk>/propavailability', PropAvailabilityDetailView.as_view(), name='propavailability_list'),
+    path('propavailability_create', PropAvailabilityCreateView.as_view(),name='propavailability_create'),
     path('parkprop/<uuid:pk>/reserve_create', PropReservationCreateView.as_view(), name='reservation'),
     path('parkprop/<uuid:pk>/reserve_detail', PropReservationDetailView.as_view(), name='reservation_detail'),
     path('parkprop/<uuid:pk>/cancel/',PropReservationDeleteView.as_view(), name='reservation_delete'),
     path('parkprop/<uuid:pk>/reservation_list/',PropReservationListView.as_view(), name='reservation_list'),
+    path('propstatus/<uuid:pk>/edit/', PropertyStatusEditView.as_view(), name='propstatus_edit'),
+    path('propstatus/<uuid:pk>/delete/', PropertyStatusDeleteView.as_view(), name='propstatus_delete'),
+    path('propstatusnew/', PropertyStatusCreateView.as_view(), name='propstatus_add'),
+    path('propstatuslist/', PropertyStatusListView.as_view(), name='propstatus_list'),
 
-
+    #...Data Updates...
+    path("UpdateData", UpdateDataTemplateView.as_view(), name="update_data"),
     #...Data Exports...
     path('reporting', ReportTemplateView.as_view(), name='reporting'),
     path('export_Park', views.export_Park_toCSV, name='export_Park'),
