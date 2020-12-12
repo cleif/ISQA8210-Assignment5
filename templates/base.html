@@ -37,9 +37,8 @@
                         <span>Property Status</span>
                     </a>
                 </li>
-       {% endif %}
 
-        {% if user.is_authenticated %}
+        {% elif user.is_authenticated and not request.user|has_group:"maintenanceworker"%}
             <li class="nav-item">
               <a class="nav-link" href="{% url 'reservation_list' user.pk %}">
                   <span>My Reservations</span>
