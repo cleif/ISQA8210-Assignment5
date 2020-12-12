@@ -29,7 +29,6 @@ class ParkProperty(models.Model):
     property_location = models.CharField(max_length=255,blank=True,null=True,default='')
     property_price = models.IntegerField(null=True,blank=True)
     property_image = models.TextField(default='') #reference external URL for Image
-    property_slot = models.CharField(max_length=50,blank=True,null=True,default='2 hours')
     
     def __str__(self):
         return self.property_name

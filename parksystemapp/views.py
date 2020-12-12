@@ -7,7 +7,7 @@ from django.urls import reverse_lazy,reverse
 from PIL import Image
 from django.http import HttpResponseRedirect, HttpResponse
 from datetime import datetime
-from .forms import ParkPropertyAvailabilityForm
+from .forms import ParkPropertyAvailabilityForm, PropertyStatusForm
 import csv
 
 
@@ -140,6 +140,12 @@ class PropReservationDetailView(LoginRequiredMixin, DetailView):
     model = Reservation
     template_name  = 'reservation_detail.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['propstatus'] = PropertyStatus.objects.all()
+        return context
+
+
 class PropReservationDeleteView(LoginRequiredMixin,DeleteView):
     model = Reservation
     template_name = 'reservation_delete.html'
@@ -168,13 +174,61 @@ class PropAvailabilityCreateView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse('parkprop_list')
 
+class PropertyStatusEditView(LoginRequiredMixin, UpdateView):
+        model = PropertyStatus
+        fields = (
+           'reservation_id', 'property_report_time', 'property_status_description',
+            'property_expenses',
+            'property_status_notes', 'maint_staff_email')
+        template_name = 'propstatus_edit.html'
+
+        def form_valid(self, form):
+            form.instance.propstatus = get_object_or_404(PropertyStatus, pk=self.kwargs['pk'])
+            form.instance.author = self.request.user
+            return super().form_valid(form)
+
+        def get_success_url(self):
+            return reverse('parkprop_list')
+
+
+class PropertyStatusDeleteView(LoginRequiredMixin, DeleteView):
+    model = PropertyStatus
+    template_name = 'propstatus_delete.html'
+
+    def get_success_url(self):
+        return reverse('propstatus_list')
+
+
+class PropertyStatusCreateView(LoginRequiredMixin, CreateView):
+    model = PropertyStatus
+    template_name = 'propstatus_add.html'
+    form_class = PropertyStatusForm
+    #fields = ('reservation_id', 'property_report_time', 'property_status_description', 'property_expenses','property_status_notes', 'maint_staff_email')
+    login_url = 'login'
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('propstatus_list')
+
+
+class PropertyStatusListView(LoginRequiredMixin, ListView):
+    model = PropertyStatus
+    template_name = 'propstatus_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['propstatuses'] = PropertyStatus.objects.all()
+        return context
+   
+
 #...Data Updates...
 class UpdateDataTemplateView(LoginRequiredMixin,TemplateView):
     template_name = "update_data.html"
 
-
 #....Reporting Exports...
-
 class ReportTemplateView(LoginRequiredMixin,TemplateView):
     template_name = 'reporting.html'
 
@@ -267,54 +321,3 @@ def export_Transaction_toCSV(request):
     for row in Transaction.objects.values(*fields):
         writer.writerow([row[field] for field in fields])
     return response
-
-class PropertyStatusEditView(LoginRequiredMixin, UpdateView):
-        model = PropertyStatus
-        fields = (
-           'reservation_id', 'property_report_time', 'property_status_description',
-            'property_expenses',
-            'property_status_notes', 'maint_staff_email')
-        template_name = 'propstatus_edit.html'
-
-        def form_valid(self, form):
-            form.instance.propstatus = get_object_or_404(PropertyStatus, pk=self.kwargs['pk'])
-            form.instance.author = self.request.user
-            return super().form_valid(form)
-
-        def get_success_url(self):
-            return reverse('propstatus_list')
-
-
-class PropertyStatusDeleteView(LoginRequiredMixin, DeleteView):
-    model = PropertyStatus
-    template_name = 'propstatus_delete.html'
-
-    def get_success_url(self):
-        return reverse('propstatus_list')
-
-
-class PropertyStatusCreateView(LoginRequiredMixin, CreateView):
-    model = PropertyStatus
-    template_name = 'propstatus_add.html'
-    fields = (
-        'reservation_id', 'property_report_time', 'property_status_description', 'property_expenses',
-        'property_status_notes', 'maint_staff_email')
-    login_url = 'login'
-
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        return super().form_valid(form)
-
-    def get_success_url(self):
-        return reverse('propstatus_list')
-
-
-class PropertyStatusListView(LoginRequiredMixin, ListView):
-    model = PropertyStatus
-    template_name = 'propstatus_list.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['propstatuses'] = PropertyStatus.objects.all()
-        return context
-   

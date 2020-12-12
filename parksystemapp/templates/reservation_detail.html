@@ -28,7 +28,9 @@ height: auto;">
         <b>Email:</b> {{object.property_availability_id.property_name.park_name.park_contact.email}}
       </li>
       <li class="list-group-item text-white bg-dark mb-3"><b>Reservation Status Details:</b><br>
-        <b>COMING SOON</b>
+        {%if propstatus.reservation_id == object.id %}
+        <b>Status Notes:</b> {{propstatus.transaction_notes}}
+        {% endif %}
       </li>
     </ul>
     <div class="card-body">

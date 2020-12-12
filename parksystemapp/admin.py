@@ -10,8 +10,8 @@ class ParkAdmin(admin.ModelAdmin):
 
 class ParkPropertyAdmin(admin.ModelAdmin):
     model = ParkProperty
-    list_display = ('id','park_name','property_name','property_description','property_guest_capacity','property_location','property_price','property_image','property_slot')
-    list_filter = ('id','park_name','property_name','property_description','property_guest_capacity','property_location','property_price','property_image','property_slot')
+    list_display = ('id','park_name','property_name','property_description','property_guest_capacity','property_location','property_price','property_image')
+    list_filter = ('id','park_name','property_name','property_description','property_guest_capacity','property_location','property_price','property_image')
     ordering = ['park_name']
 
 class ParkPropertyAvailabilityAdmin(admin.ModelAdmin):
