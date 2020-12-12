@@ -2,16 +2,16 @@
 {% load filters %}
 {% block content %}
 <p></p>
-    <div class="card-deck">
+    <div class="card-group">
         {% for parks in parks  %}
-        <div class="card text-white bg-dark mb-3">
+        <div class="card text-white bg-dark mb-3" style="max-width: 300; margin: 1%;">
             <div class="card-body" style="max-wdith: 300">
                 <img class="card-img-top" src={{parks.park_image}} alt="">
                 <h5 class="card-title">{{ parks.park_name }}</h5>
                 <p class="card-subtitle">{{ parks.park_addr }}</p>
             </div>
             <div class="card-footer">
-                <a class="btn btn-info" href="{% url 'park_details' parks.pk %}">Property Details</a>
+                <a class="btn btn-info" href="{% url 'park_details' parks.pk %}">Details</a>
                 {% if request.user|has_group:"Admin" %}
                     <a class="btn btn-warning" href="{% url 'park_edit' parks.pk %}">Edit</a>
                     <a class="btn btn-danger" href="{% url 'park_delete' parks.pk %}">Delete</a>
@@ -20,7 +20,7 @@
         </div>  
         {% if forloop.counter|divisibleby:3 %}
     </div>
-        <div class="card-deck">
+        <div class="card-group">
         {% endif %}
     {% endfor %}
 {% endblock %}

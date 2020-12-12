@@ -2,10 +2,10 @@
 {% block content %}
 <p></p>
 <h2 style="padding-left: 15Px">{{ object.property_name }} Availability at {{ object.park_name.park_name }}</h2>
-<div class="card-deck">
+<div class="card-group">
     {% for propertyava in propertyava  %}
     {% if propertyava.property_name.id == object.id %}
-        <div class="card text-white bg-dark mb-3">
+        <div class="card text-white bg-dark mb-3" style="max-width: 300; margin: 1%;">
             <div class="card-body" style="max-width: 300;">
                 <p class="card-text"><b>Date:</b> {{ propertyava.property_availability_date }}</p>
                 <p class="card-text"><b>Time Slot:</b> {{ propertyava.property_availability_starttime }} to {{ propertyava.property_availability_endtime }}</p>
@@ -17,7 +17,7 @@
     {% if forloop.counter|divisibleby:3 %}
 </div>
     <br>
-            <div class="card-deck">
+            <div class="card-group">
             {% endif %}
     {% endif %}
     {% endfor %}
