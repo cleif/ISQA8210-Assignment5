@@ -172,11 +172,11 @@ class PropAvailabilityCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('parkprop_list')
+        return reverse('update_data')
 
 class PropertyStatusEditView(LoginRequiredMixin, UpdateView):
         model = PropertyStatus
-        fields = ('property_report_time', 'property_status_description','property_expenses','property_status_notes')
+        fields = ('property_status_description','property_expenses','property_status_notes')
         template_name = 'propstatus_edit.html'
 
         def form_valid(self, form):
@@ -185,7 +185,7 @@ class PropertyStatusEditView(LoginRequiredMixin, UpdateView):
             return super().form_valid(form)
 
         def get_success_url(self):
-            return reverse('parkprop_list')
+            return reverse('update_data')
 
 
 class PropertyStatusDeleteView(LoginRequiredMixin, DeleteView):
@@ -201,14 +201,20 @@ class PropertyStatusCreateView(LoginRequiredMixin, CreateView):
     template_name = 'propstatus_add.html'
     form_class = PropertyStatusForm
     #fields = ('reservation_id', 'property_report_time', 'property_status_description', 'property_expenses','property_status_notes', 'maint_staff_email')
-    login_url = 'login'
+    #login_url = 'login'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['reservations'] = Reservation.objects.all()
+        return context
 
     def form_valid(self, form):
         form.instance.maint_staff_email = self.request.user
+        #form.instance.reservation_id = self.reservation.property_availability_id.property_name
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('propstatus_list')
+        return reverse('update_data')
 
 
 class PropertyStatusListView(LoginRequiredMixin, ListView):
