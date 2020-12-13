@@ -5,18 +5,46 @@
     <div class="card text-white bg-dark mb-3">
       <div class="card-header"><h2>Confirm Reservation</h2></div>
             <div class="card-body">
-            <p><b>Renter:</b> {{ object.renter_email.first_name }}</p>
-            <p><b>Property:</b> {{ object.property_availability_id.property_name.property_name }}</p>
-            <p><b>Reservation Date:</b> {{ object.property_availability_id.property_availability_date }}</p>
-            <p><b>Time Slot:</b> {{ object.property_availability_id.property_availability_starttime }} - {{ object.property_availability_id.property_availability_endtime }}</p>
-            <form method="POST" class="parkprop-form">{% csrf_token %}
+                <form method="POST" class="parkprop-form">           
+                {% csrf_token %}
                 {{ form|crispy }}
            
         </div>        
         <div class="card-footer">
-            <button type="submit" align="center" class="save btn btn-info">Save</button>
+            <script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script>
+            <button type="button" onClick="payWithRave()" align="center" class="save btn btn-info">Checkout</button>
         </div>
         </form>
     </div>
     </div>
+    <script>
+        const publicKey = "{{ key }}";
+        function payWithRave() {
+            var x = getpaidSetup({
+                PBFPubKey: publicKey,
+                customer_email: "{{request.user.email}}",
+                amount: "1",//"{{propertyava.property_name.property_price}}",
+                customer_phone: "{{request.user.user_phone}}",
+                currency: "USD",
+                txref: "rave-123456",
+                custom_title: "Albuquerque Park",
+                onclose: function() {},
+                callback: function(response) {
+                    var txref = response.tx.txRef;
+                    console.log("This is the response returned after a charge", response);
+                    if(
+                          response.tx.chargeResponseCode == "00" ||
+                          response.tx.chargeResponseCode == "0"
+                      ) {
+                          document.location.href = "reservation_list"
+                              // redirect to a success page
+                      } else {
+                          // redirect to a failure page.
+                          document.location.href = "failure"
+                      }
+                    x.close();
+                }
+            });
+        }
+    </script>
 {% endblock %}

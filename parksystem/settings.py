@@ -135,7 +135,7 @@ USE_L10N = True
 USE_TZ = True
 
 # BRAINTREE INFORMATION
-BRAINTREE_MERCHANT_ID = 'vh7236s563b7xcmw'  # Merchant ID
+""" BRAINTREE_MERCHANT_ID = 'vh7236s563b7xcmw'  # Merchant ID
 BRAINTREE_PUBLIC_KEY = '9vmkd93ph6rmrp9s'   # Public Key
 BRAINTREE_PRIVATE_KEY = os.environ.get('BRAINTREE_PRIVATE_KEY')  # Private key
 BRAINTREE_CONF = braintree.Configuration(
@@ -143,7 +143,10 @@ BRAINTREE_CONF = braintree.Configuration(
     BRAINTREE_MERCHANT_ID,
     BRAINTREE_PUBLIC_KEY,
     BRAINTREE_PRIVATE_KEY
-)
+) """
+
+RAVE_PUBLIC_KEY = 'FLWPUBK_TEST-b855c34111fbe4ed45ff8b0fae32994a-X'
+RAVE_SECRET_KEY = os.environ.get('RAVE_SECRET_KEY')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
