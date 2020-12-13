@@ -1,25 +1,49 @@
 {% extends 'base.html' %}
+{% load filters %}
+
 {% block content %}
 <p></p>
+    {% if request.user|has_group:"Admin" %}
     <div class="card-group">
-        {% for reservation in object_list  %}
-        {% if request.user == reservation.renter_email %}
-            <div class="card text-white bg-dark mb-3" style="max-width: 300; margin: 1%;">
-                <div class="card-body" style="max-width: 300;">
-                <h5 class="card-title">{{ reservation.property_availability_id.property_name }}</h5>
-                <p class="card-text"><b>Reserverd for:</b> {{ reservation.renter_email.first_name }} {{reservation.renter_email.last_name}}</p>
-                <p class="card-text"><b>Status:</b> {{ reservation.res_status }}</p>
+            {% for reservation in object_list  %}
+                <div class="card text-white bg-dark mb-3" style="max-width: 300; margin: 1%;">
+                    <div class="card-body" style="max-width: 300;">
+                    <h5 class="card-title">{{ reservation.property_availability_id.property_name }}</h5>
+                    <p class="card-text"><b>Reserverd for:</b> {{ reservation.renter_email.first_name }} {{reservation.renter_email.last_name}}</p>
+                    <p class="card-text"><b>Status:</b> {{ reservation.res_status }}</p>
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-info" href="{% url 'reservation_detail' reservation.pk %}">Details</a>
+                    </div>
+                </div>  
+                {% if forloop.counter|divisibleby:3 %}
                 </div>
-                <div class="card-footer">
-                    <a class="btn btn-info" href="{% url 'reservation_detail' reservation.pk %}">Details</a>
-                </div>
-            </div>  
-            {% if forloop.counter|divisibleby:3 %}
-            </div>
-            <br>
-            <div class="card-group">
-            {% endif %}
-        {% endif %}
-        {% endfor %}
+                <br>
+                <div class="card-group">
+                {% endif %}
+            {% endfor %}
     </div>
+        {% else %}
+        <div class="card-group">
+            {% for reservation in object_list  %}
+            {% if request.user == reservation.renter_email %}
+                <div class="card text-white bg-dark mb-3" style="max-width: 300; margin: 1%;">
+                    <div class="card-body" style="max-width: 300;">
+                    <h5 class="card-title">{{ reservation.property_availability_id.property_name }}</h5>
+                    <p class="card-text"><b>Reserverd for:</b> {{ reservation.renter_email.first_name }} {{reservation.renter_email.last_name}}</p>
+                    <p class="card-text"><b>Status:</b> {{ reservation.res_status }}</p>
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-info" href="{% url 'reservation_detail' reservation.pk %}">Details</a>
+                    </div>
+                </div>  
+                {% if forloop.counter|divisibleby:3 %}
+                </div>
+                <br>
+                <div class="card-group">
+                {% endif %}
+            {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
 {% endblock %}

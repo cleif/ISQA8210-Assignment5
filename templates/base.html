@@ -30,15 +30,7 @@
 
     <div id="wrapper">
       <ul class="sidebar navbar-nav">
-
-      {% if request.user|has_group:"maintenanceworker" %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'propstatus_list' %}">
-                        <span>Property Status</span>
-                    </a>
-                </li>
-
-        {% elif user.is_authenticated and not request.user|has_group:"maintenanceworker"%}
+        {% if user.is_authenticated and not request.user|has_group:"maintenanceworker" and not request.user|has_group:"Admin"%}
             <li class="nav-item">
               <a class="nav-link" href="{% url 'reservation_list' user.pk %}">
                   <span>My Reservations</span>
@@ -51,7 +43,6 @@
              </li>
 
           {% endif %}
-
       </ul>
     </div>
       <!-- Sidebar
@@ -101,12 +92,14 @@
                 aria-labelledby="userMenu" >
                   <a class="dropdown-item" href="{% url 'account' %}">Account</a>
                   <div class="dropdown-divider"></div>
-                  {% if request.user|has_group:"Admin" %}
+                  {% if request.user|has_group:"Admin" or request.user|has_group:"maintenanceworker" %}
                     <a class="dropdown-item" href="{% url 'update_data' %}">Data Management</a>
                     <div class="dropdown-divider"></div>
+                    {% endif %}
+                    {% if request.user|has_group:"Admin" %}
                     <a class="dropdown-item" href="{% url 'reporting' %}">Reporting</a>
                     <div class="dropdown-divider"></div>
-                  {% endif %}
+                    {% endif %}
                   <a class="dropdown-item" href="{% url 'logout' %}">
                   Log Out</a>
                 </div>
