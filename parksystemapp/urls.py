@@ -57,5 +57,6 @@ urlpatterns = [
 
     # Checkout 
     path('checkout/', views.CheckoutPageView.as_view(), name='checkout'),
-    path('checkout/success/', views.SuccessView.as_view(), name='success')
+    path('checkout/success/', views.SuccessView.as_view(), name='success'),
+    path('checkout/failure/', views.FailureView.as_view(), name='failure')
 ]

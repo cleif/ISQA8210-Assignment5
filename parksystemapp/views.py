@@ -126,6 +126,7 @@ class PropReservationCreateView(LoginRequiredMixin,CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['propertyava'] = ParkPropertyAvailability.objects.all()
+        context['key'] = settings.RAVE_PUBLIC_KEY
         return context
     
     def form_valid(self,form):
@@ -135,11 +136,6 @@ class PropReservationCreateView(LoginRequiredMixin,CreateView):
 
     def get_success_url(self):
         return reverse('park_list')
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['key'] = settings.RAVE_PUBLIC_KEY
-        return context
 
 class PropReservationDetailView(LoginRequiredMixin, DetailView):
     model = Reservation
@@ -341,3 +337,6 @@ class CheckoutPageView(TemplateView):
 
 class SuccessView(TemplateView):
     template_name = 'success.html'
+
+class FailureView(TemplateView):
+    template_name = 'failure.html'
