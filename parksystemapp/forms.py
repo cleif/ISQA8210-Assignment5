@@ -27,7 +27,5 @@ class ParkPropertyAvailabilityForm(ModelForm):
 class PropertyStatusForm(ModelForm):
     class Meta:
         model = PropertyStatus
-        fields = ['reservation_id','property_report_time','property_status_description','property_status_notes','property_expenses']
-        widgets = {
-            'property_report_time': DateTimeInput(),
-        }
+        fields = ['reservation_id','property_status_description','property_status_notes','property_expenses']
+
