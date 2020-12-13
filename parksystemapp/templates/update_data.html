@@ -12,9 +12,9 @@
           <div class="card-header"><h5>Create Operations</h52>
             <div class="card-body">
               {% if request.user|has_group:"Admin" %}
-              <a href="{% url 'park_add' %}" class="btn btn-block btn-info">Add New Park</a>
-              <a href="{% url 'parkprop_add' %}" class="btn btn-block btn-info">Add New Park Property</a>
-              <a href="{% url 'propavailability_create' %}" class="btn btn-block btn-info">Add New Property Availability</a>
+              <a href="{% url 'park_add' %}" class="btn btn-block btn-info">Add Park</a>
+              <a href="{% url 'parkprop_add' %}" class="btn btn-block btn-info">Add Park Property</a>
+              <a href="{% url 'propavailability_create' %}" class="btn btn-block btn-info">Add Property Availability</a>
               {% endif %}
               {% if request.user|has_group:"maintenanceworker" %}
               <a href="{% url 'propstatus_add' %}" class="btn btn-block btn-info">Create Reservation Status</a>
