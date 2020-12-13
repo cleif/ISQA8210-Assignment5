@@ -76,7 +76,7 @@ class ParkPropertyListView(LoginRequiredMixin,ListView):
 
 class ParkPropertyEditView(LoginRequiredMixin,UpdateView):
     model = ParkProperty
-    fields = ('park_name', 'property_name', 'property_description', 'property_guest_capacity','property_location','property_price','property_image','property_slot')
+    fields = ('park_name', 'property_name', 'property_description', 'property_guest_capacity','property_location','property_price','property_image')
     template_name = 'parkprop_edit.html'
 
     def form_valid(self, form):
