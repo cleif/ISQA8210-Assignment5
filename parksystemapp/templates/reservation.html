@@ -1,17 +1,11 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
-{% debug %}
 {% block content %}
 <div class="container" style="margin-top: 20px;">
     <div class="card text-white bg-dark mb-3">
       <div class="card-header"><h2>Confirm Reservation</h2></div>
             <div class="card-body">
-                <form method="POST" class="parkprop-form">
-            <p><b>Renter:</b> {{ request.user.first_name }} {{ request.user.last_name }}</p>            
-            <p><b>Property:</b> {{ object.property_name.property_name }}</p>
-            <p><b>Reservation Date:</b> {{ object.property_availability_date }}</p>
-            <p><b>Time Slot:</b> {{ object.property_availability_starttime }} - {{ object.property_availability_endtime }}</p>
-            
+                <form method="POST" class="parkprop-form">           
                 {% csrf_token %}
                 {{ form|crispy }}
            
@@ -24,20 +18,16 @@
     </div>
     </div>
     <script>
-        console.log("{{object}}")
-    </script>
-    <script>
         const publicKey = "{{ key }}";
-        console.log("{{propertyava.property_name.property_price}}")
         function payWithRave() {
             var x = getpaidSetup({
                 PBFPubKey: publicKey,
                 customer_email: "{{request.user.email}}",
-                amount: "{{propertyava.property_name.property_price}}",
+                amount: "1",//"{{propertyava.property_name.property_price}}",
                 customer_phone: "{{request.user.user_phone}}",
                 currency: "USD",
                 txref: "rave-123456",
-                custom_title: "Wildlife Park",
+                custom_title: "Albuquerque Park",
                 onclose: function() {},
                 callback: function(response) {
                     var txref = response.tx.txRef;
