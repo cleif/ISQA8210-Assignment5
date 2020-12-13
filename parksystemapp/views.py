@@ -176,10 +176,7 @@ class PropAvailabilityCreateView(LoginRequiredMixin, CreateView):
 
 class PropertyStatusEditView(LoginRequiredMixin, UpdateView):
         model = PropertyStatus
-        fields = (
-           'reservation_id', 'property_report_time', 'property_status_description',
-            'property_expenses',
-            'property_status_notes', 'maint_staff_email')
+        fields = ('property_report_time', 'property_status_description','property_expenses','property_status_notes')
         template_name = 'propstatus_edit.html'
 
         def form_valid(self, form):
@@ -207,7 +204,7 @@ class PropertyStatusCreateView(LoginRequiredMixin, CreateView):
     login_url = 'login'
 
     def form_valid(self, form):
-        form.instance.author = self.request.user
+        form.instance.maint_staff_email = self.request.user
         return super().form_valid(form)
 
     def get_success_url(self):
