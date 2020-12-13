@@ -8,11 +8,7 @@
   <div class="container ">
     <h1 class="display-4" style="text-align: center;">Albuquerque Parks and Recreation</h1>
     <p></p>
-    {% if not request.user|has_group:"maintenanceworker" %}
         <a class="btn btn-block btn-info" href="{% url 'park_list' %}">View parks</a>
-            {% elif request.user|has_group:"maintenanceworker" %}
-
-          {% endif %}
   </div>
   </div>
 </div>

@@ -3,6 +3,8 @@
 
 {% block content %}
 <p></p>
+<div class="row"><h2>Properties at {{ object.park_name }}</h2></div>
+<p></p>
 <div class="card-group">
     {% for parkprops in parkprops  %}
     {% if parkprops.park_name.id == object.id %}

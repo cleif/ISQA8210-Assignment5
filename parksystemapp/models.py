@@ -56,7 +56,7 @@ class ParkPropertyAvailability(models.Model):
 
 class PropertyStatus(models.Model):
     id = models.UUIDField(primary_key=True,default=uuid.uuid4,blank=False)
-    property_report_time = models.DateTimeField(auto_now=False, auto_now_add=False)
+    property_report_time = models.DateTimeField(auto_now_add=True)
     property_status_description = models.TextField(default='')
     property_expenses = models.IntegerField(null=True,blank=True)
     property_status_notes = models.TextField(default='')
