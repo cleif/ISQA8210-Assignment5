@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-<!-- {% load crispy_forms_tags %} -->
+{% load filters %}
 {% block content %}
   <div class="container">
     <div class="row" style="justify-content: center;">
@@ -11,9 +11,14 @@
         <div class="card text-white bg-dark mb-3">
           <div class="card-header"><h5>Create Operations</h52>
             <div class="card-body">
+              {% if request.user|has_group:"Admin" %}
               <a href="{% url 'park_add' %}" class="btn btn-block btn-info">Add New Park</a>
               <a href="{% url 'parkprop_add' %}" class="btn btn-block btn-info">Add New Park Property</a>
               <a href="{% url 'propavailability_create' %}" class="btn btn-block btn-info">Add New Property Availability</a>
+              {% endif %}
+              {% if request.user|has_group:"maintenanceworker" %}
+              <a href="{% url 'propstatus_add' %}" class="btn btn-block btn-info">Create Reservation Status</a>
+              {% endif %}
             </div>
           </div>
           <div class="card-footer">
@@ -22,9 +27,14 @@
         <div class="card text-white bg-dark mb-3">
           <div class="card-header"><h5>Update/Delete Operations</h5>
             <div class="card-body">
-              <a href="{% url 'park_list' %}" class="btn btn-block btn-info">Modify Existing Parks</a>
-              <a href="{% url 'parkprop_list' %}" class="btn btn-block btn-info">Modify Existing Park Property</a>
+              {% if request.user|has_group:"Admin" %}
+              <a href="{% url 'park_list' %}" class="btn btn-block btn-info">Modify Parks</a>
+              <a href="{% url 'parkprop_list' %}" class="btn btn-block btn-info">Modify Park Property</a>
               <button class="btn btn-block btn-info" disabled>Admin Panel Access</button>
+              {% endif %}
+              {% if request.user|has_group:"maintenanceworker" %}
+              <a href="{% url 'propstatus_list' %}" class="btn btn-block btn-info">Modify Reservation Status</a>
+              {% endif %}
             </div>
           </div>
           <div class="card-footer">
