@@ -2,9 +2,9 @@
 {% load filters %}
 {% block content %}
 <p></p>
-    <div class="card-deck">
+    <div class="card-group">
     {% for propstatuses in propstatuses %}
-        <div class="card text-white bg-dark mb-3">
+        <div class="card text-white bg-dark mb-3" style="max-width: 300; margin: 1%;">
             <div class="card-body" style="max-wdith: 300">
                 <p><b>Report Time: </b>{{ propstatuses.property_report_time }}</p>
                 <p><b>Description: </b>{{ propstatuses.property_status_description }}</p>
@@ -28,9 +28,5 @@
         <div class="card-deck">
         {% endif %}
     {% endfor %}
-        <div class="row" align="center">
-            <a href="{% url 'propstatus_add' %}" class="row"><span
-                    class="btn btn-primary">Add Property Status</span></a>
-        </div>
     </div>
 {% endblock %}
