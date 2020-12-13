@@ -55,4 +55,7 @@ urlpatterns = [
     path('export_Reservation', views.export_Reservation_toCSV, name='export_Reservation'),
     path('export_Transaction', views.export_Transaction_toCSV, name='export_Transaction'),
 
+    # Checkout 
+    path('checkout/', views.CheckoutPageView.as_view(), name='checkout'),
+    path('checkout/success/', views.SuccessView.as_view(), name='success')
 ]

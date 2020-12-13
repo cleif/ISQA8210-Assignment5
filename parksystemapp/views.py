@@ -1,5 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.views.generic.edit import UpdateView, DeleteView, CreateView
 from django.views.generic import ListView, DetailView, TemplateView
 from .models import models, Park, ParkProperty, ParkPropertyAvailability,PropertyStatus,Reservation,Transaction
@@ -9,7 +9,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from datetime import datetime
 from .forms import ParkPropertyAvailabilityForm, PropertyStatusForm
 import csv
-
+from django.conf import settings
 
 
 class ParkListView(LoginRequiredMixin,ListView):
@@ -135,6 +135,11 @@ class PropReservationCreateView(LoginRequiredMixin,CreateView):
 
     def get_success_url(self):
         return reverse('park_list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['key'] = settings.RAVE_PUBLIC_KEY
+        return context
 
 class PropReservationDetailView(LoginRequiredMixin, DetailView):
     model = Reservation
@@ -324,3 +329,15 @@ def export_Transaction_toCSV(request):
     for row in Transaction.objects.values(*fields):
         writer.writerow([row[field] for field in fields])
     return response
+
+# CHECK VIEWS
+class CheckoutPageView(TemplateView):
+    template_name = 'checkout.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['key'] = settings.RAVE_PUBLIC_KEY
+        return context
+
+class SuccessView(TemplateView):
+    template_name = 'success.html'
