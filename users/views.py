@@ -21,7 +21,7 @@ class UserUpdateView(UpdateView):
 class UserDeleteView(DeleteView):
     model = CustomUser
     template_name = 'user_delete.html'
-    success_url = reverse_lazy('')
+    success_url = reverse_lazy('home')
 
 def accountView(request):
     #user = request.user
