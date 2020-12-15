@@ -31,6 +31,7 @@
               <a href="{% url 'park_list' %}" class="btn btn-block btn-info">Modify Parks</a>
               <a href="{% url 'parkprop_list' %}" class="btn btn-block btn-info">Modify Park Property</a>
               <a href="{% url 'reservation_list' user.pk %}" class="btn btn-block btn-info">Modify Reservations</a>
+              <a href="https://dashboard.flutterwave.com/dashboard/transactions/all" class="btn btn-block btn-info">Transaction Management</a>
               {% endif %}
               {% if request.user|has_group:"maintenanceworker" %}
               <a href="{% url 'propstatus_list' %}" class="btn btn-block btn-info">Modify Reservation Status</a>
