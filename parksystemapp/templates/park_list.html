@@ -2,9 +2,10 @@
 {% load filters %}
 {% block content %}
 <p></p>
-<div class="row"><h2>Existing Park Data Management</h2></div>
-<p></p>
-
+{% if request.user|has_group:"Admin" %}
+    <div class="row"><h2>Existing Park Data Management</h2></div>
+    <p></p>
+{% endif %}
     <div class="card-group">
         {% for parks in parks  %}
         <div class="card text-white bg-dark mb-3" style="max-width: 300; margin: 1%;">
