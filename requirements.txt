@@ -10,7 +10,7 @@ django-reservation==0.2.9
 django-tempus-dominus==5.1.2.13
 gunicorn==20.0.4
 idna==2.10
-Pillow==8.0.1
+Pillow==8.1.1
 psycopg2==2.8.4
 python-stdnum==1.14
 pytz==2020.4
